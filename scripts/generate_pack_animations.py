@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate this project's authored, formula-based hand-lowering animations."""
+import argparse
 import json
 from pathlib import Path
 
@@ -19,22 +20,44 @@ LOWER_DISTANCE = 20.0
 def definitions():
     animations = {}
     for name, duration in PROFILES.items():
-        # A triangular envelope: down quickly, then return steadily to neutral.
-        # This is an independently authored expression, not imported keyframe JSON.
-        expression = (
-            f"query.is_first_person ? -{LOWER_DISTANCE:.1f} * "
-            f"math.clamp(math.min(query.anim_time / {LOWER_TIME:.3f}, "
-            f"({duration:.3f} - query.anim_time) / {duration - LOWER_TIME:.3f}), 0.0, 1.0) : 0.0"
-        )
-        animations["animation.geyser_cooldown." + name] = {
-            "loop": False,
+        animations["animation.player." + name] = {
+            "loop": "hold_on_last_frame",
             "animation_length": duration,
-            "bones": {"rightarm": {"position": [0.0, expression, 0.0]}},
+            "loop_delay": "0",
+            "bones": {
+                "rightArm": {
+                    "position": {
+                        "0.0": [0, 0, 0],
+                        f"{LOWER_TIME:.3f}": [0, f"variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -{LOWER_DISTANCE:.0f} : 0", 0],
+                        f"{duration:.2f}": [0, 0, 0],
+                    }
+                }
+            },
         }
     return {"format_version": "1.8.0", "animations": animations}
 
-if __name__ == "__main__":
+def rendered():
+    return (
+        "// mc-disable resourcepack.model.bone.missing\n"
+        "// rightArm belongs to the built-in player geometry.humanoid.custom.\n"
+        + json.dumps(definitions(), indent=2) + "\n"
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true", help="Fail if the generated file is stale")
+    args = parser.parse_args()
     output = Path(__file__).resolve().parents[1] / "resource-pack/animations/cooldown.animation.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(definitions(), indent=2) + "\n", encoding="utf-8")
+    content = rendered()
+    if args.check:
+        if not output.is_file() or output.read_text(encoding="utf-8") != content:
+            raise SystemExit("Cooldown animations are stale; run python scripts/generate_pack_animations.py")
+    else:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(content, encoding="utf-8")
     print(output)
+
+
+if __name__ == "__main__":
+    main()

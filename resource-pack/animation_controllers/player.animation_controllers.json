@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.player.first_person_attack": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            {
+              "first_person_attack_rotation": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+            },
+            {
+              "attack_rotation_custom_sword": "query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword')"
+            },
+            {
+              "attack_rotation_custom_axe": "query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident')"
+            },
+            {
+              "attack_rotation_custom_mace": "query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace')"
+            }
+          ],
+          "transitions": [
+            {
+              "vr_attack": "variable.is_using_vr"
+            }
+          ]
+        },
+        "vr_attack": {
+          "animations": [
+            "first_person_vr_attack_rotation"
+          ],
+          "transitions": [
+            {
+              "default": "!variable.is_using_vr"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

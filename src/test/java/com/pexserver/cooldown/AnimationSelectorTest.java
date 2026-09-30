@@ -9,13 +9,13 @@ class AnimationSelectorTest {
     }
 
     @Test void standardJavaWeaponsSelectTheirOwnProfiles() {
-        assertEquals("animation.geyser_cooldown.hand", forAttackSpeed(4.0));
-        assertEquals("animation.geyser_cooldown.sword", forAttackSpeed(1.6));
-        assertEquals("animation.geyser_cooldown.pickaxe", forAttackSpeed(1.2));
-        assertEquals("animation.geyser_cooldown.diamond_axe", forAttackSpeed(1.0));
-        assertEquals("animation.geyser_cooldown.iron_axe", forAttackSpeed(0.9));
-        assertEquals("animation.geyser_cooldown.stone_axe", forAttackSpeed(0.8));
-        assertEquals("animation.geyser_cooldown.mace", forAttackSpeed(0.6));
+        assertEquals("animation.player.hand", forAttackSpeed(4.0));
+        assertEquals("animation.player.sword", forAttackSpeed(1.6));
+        assertEquals("animation.player.pickaxe", forAttackSpeed(1.2));
+        assertEquals("animation.player.diamond_axe", forAttackSpeed(1.0));
+        assertEquals("animation.player.iron_axe", forAttackSpeed(0.9));
+        assertEquals("animation.player.stone_axe", forAttackSpeed(0.8));
+        assertEquals("animation.player.mace", forAttackSpeed(0.6));
     }
 
     @Test void invalidProtocolCooldownsAreRejected() {

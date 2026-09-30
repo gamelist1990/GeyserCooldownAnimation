@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Validate versioned JARs and the project's MIT resource pack, then package assets."""
+"""Validate versioned JARs and the integrated resource pack, then package assets."""
 import argparse
 import hashlib
-import io
-import json
 import re
 import shutil
 import zipfile
@@ -11,28 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z]+(?:[.-][0-9A-Za-z]+)*)?")
-PROFILES = {"hand", "sword", "pickaxe", "diamond_axe", "iron_axe", "stone_axe", "mace"}
+from validate_resource_pack import validate_archive as validate_pack
 
-def validate_pack(data, version):
-    with zipfile.ZipFile(io.BytesIO(data)) as pack:
-        expected = {"manifest.json", "animations/cooldown.animation.json", "README.md", "LICENSE"}
-        actual = {name for name in pack.namelist() if not name.endswith("/")}
-        if actual != expected:
-            raise SystemExit("Unexpected resource pack content")
-        manifest = json.loads(pack.read("manifest.json"))
-        numeric = [int(part) for part in version.split("-", 1)[0].split(".")]
-        if manifest["header"]["version"] != numeric:
-            raise SystemExit("Resource pack version mismatch")
-        if manifest["modules"][0]["version"] != numeric or manifest["metadata"]["license"] != "MIT":
-            raise SystemExit("Resource pack metadata mismatch")
-        definitions = json.loads(pack.read("animations/cooldown.animation.json"))["animations"]
-        if set(definitions) != {"animation.geyser_cooldown." + profile for profile in PROFILES}:
-            raise SystemExit("Resource pack animation namespace mismatch")
-        if any(animation["loop"] is not False or animation["animation_length"] <= 0
-               for animation in definitions.values()):
-            raise SystemExit("Invalid animation duration or loop")
-        if pack.read("LICENSE") != (ROOT / "LICENSE").read_bytes():
-            raise SystemExit("Resource pack license mismatch")
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -67,7 +45,7 @@ def main():
                 raise SystemExit(f"Unexpected embedded resource pack: {source.name}")
             if folder == "extensions" and jar.read("geyser-cooldown-animation.mcpack") != pack_data:
                 raise SystemExit("Embedded resource pack differs from release resource pack")
-            for notice in ("META-INF/LICENSE", "META-INF/THIRD_PARTY_NOTICES.md",
+            for notice in ("META-INF/LICENSE",
                            "META-INF/licenses/GeyserExtensionTemplate-MIT.txt"):
                 if notice not in jar.namelist():
                     raise SystemExit(f"License notice missing: {source.name}: {notice}")
@@ -80,7 +58,7 @@ def main():
         shutil.copyfile(source, target)
         artifacts.append(target)
     bundle = dist / f"GeyserCooldownAnimation-{version}.zip"
-    docs = ["README.md", "INSTALL.md", "LICENSE", "THIRD_PARTY_NOTICES.md",
+    docs = ["README.md", "INSTALL.md", "LICENSE",
             "licenses/GeyserExtensionTemplate-MIT.txt"]
     with zipfile.ZipFile(bundle, "w", zipfile.ZIP_DEFLATED) as archive:
         for source, folder, _ in sources:

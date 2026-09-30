@@ -1,25 +1,11 @@
-# Geyser Cooldown Animation リソースパック
+# Geyser Cooldown Crossplay Weapons
 
-MITライセンス下で提供される、GeyserCooldownAnimation用のリソースパックです。
+GeyserCooldownAnimation 専用の統合パック。Blurry FACE の Crossplay Animations 2.0 から剣の横薙ぎ、斧・トライデントの振り、メイス専用の振りと持ち方を取り込みました。剣・斧の各素材（銅を含む）に対応します。
 
-この拡張機能は、`AnimateEntityPacket` を使用して `animation.geyser_cooldown.<profile>` を送信します。
-このアニメーションは、一人称視点においてローカルプレイヤーの右腕を下げ、その後ニュートラルな位置に戻します。
-三人称視点での描画において、位置のオフセットは適用されません（オフセット値は0です）。
+ツルハシ・hoe の attachable と専用スイングを撤去し、通常表示・通常スイングを使います。サーバーから送られるクールダウンによる腕下げも、この2種類には適用しません。shovel の既存表示は維持します。
 
-| プロファイル | 腕を下げる時間 | ニュートラルに戻る時間 |
-| --- | --- | --- |
-| hand | 0.125秒 | 0.25秒 |
-| sword | 0.125秒 | 0.65秒 |
-| pickaxe | 0.125秒 | 0.90秒 |
-| diamond_axe | 0.125秒 | 1.05秒 |
-| iron_axe | 0.125秒 | 1.15秒 |
-| stone_axe | 0.125秒 | 1.30秒 |
-| mace | 0.125秒 | 1.65秒 |
+クールダウンは既存の Geyser パケットで再生します。参考パックのクライアント側クールダウンコントローラーは追加しないため、腕下げの二重再生を避けられます。既存の hand / sword / pickaxe / diamond_axe / iron_axe / stone_axe / mace のIDは通信互換用に保持します。回復時間は順に 0.25 / 0.65 / 0.90 / 1.05 / 1.15 / 1.30 / 1.65 秒です。
 
-腕を下げる際の最大オフセットは20モデル単位です。動きは、クランプ処理された三角形のMolangエンベロープによって定義されています。
-各アニメーションは復帰時間が経過すると終了し、最後のフレーム（待機状態）を数秒間保持することはありません。
-
-動作のタイミングは、ユーザーから要望のあった基準に従っています。JSON式、名前空間、マニフェスト、およびビルド設定は、本プロジェクトのために独自に作成されたものです。外部のテクスチャ、ジオメトリ、プレイヤー定義、またはアニメーションコントローラーファイルは含まれていません。
-
-ソースファイル: `animations/cooldown.animation.json`
-`python3 scripts/generate_pack_animations.py` を実行して再生成可能です。
+生成: python scripts/generate_pack_animations.py
+パッケージ化: ./gradlew.bat resourcePack
+cooldown.animation.json のみ生成対象です。crossplay_weapons.animation.json は参考元から統合した定義で、再生成しても維持されます。

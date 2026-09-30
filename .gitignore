@@ -6,3 +6,4 @@
 /dist/
 /local-packs/
 __pycache__/
+bin/
