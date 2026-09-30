@@ -1,3 +1,4 @@
+import java.util.UUID
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
@@ -62,22 +63,32 @@ val validateResourcePack = tasks.register<Exec>("validateResourcePack") {
     inputs.files("scripts/validate_resource_pack.py", "scripts/generate_pack_animations.py")
     commandLine(packPython.get(), "scripts/validate_resource_pack.py")
 }
-tasks.named("check") { dependsOn(validateResourcePack) }
+val testAnimationMotion = tasks.register<Exec>("testAnimationMotion") {
+    dependsOn(validateResourcePack)
+    commandLine(packPython.get(), "scripts/test_animation_motion.py")
+}
+tasks.named("check") { dependsOn(testAnimationMotion) }
 
 val generatePackManifest = tasks.register("generatePackManifest") {
     inputs.file("resource-pack/manifest.json")
     inputs.property("packVersion", packVersion)
     val output = layout.buildDirectory.file("generated/resource-pack/manifest.json")
     outputs.file(output)
+    // A new pack identity is required even when its content is unchanged.
+    outputs.upToDateWhen { false }
     doLast {
         @Suppress("UNCHECKED_CAST")
         val manifest = JsonSlurper().parse(file("resource-pack/manifest.json")) as MutableMap<String, Any>
         @Suppress("UNCHECKED_CAST")
         val header = manifest["header"] as MutableMap<String, Any>
         header["version"] = packVersion
+        header["uuid"] = UUID.randomUUID().toString()
         @Suppress("UNCHECKED_CAST")
         val modules = manifest["modules"] as List<MutableMap<String, Any>>
-        modules.forEach { it["version"] = packVersion }
+        modules.forEach {
+            it["version"] = packVersion
+            it["uuid"] = UUID.randomUUID().toString()
+        }
         output.get().asFile.apply {
             parentFile.mkdirs()
             writeText(JsonOutput.prettyPrint(JsonOutput.toJson(manifest)) + "\n", Charsets.UTF_8)

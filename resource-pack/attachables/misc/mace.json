@@ -15,7 +15,7 @@
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
-        "default": "geometry.mace"
+        "default": "geometry.item_first_person"
       },
       "animations": {
         "first_person_hold": "animation.mace.first_person_hold",

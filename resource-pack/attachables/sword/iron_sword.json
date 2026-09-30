@@ -21,10 +21,10 @@
       },
       "render_controllers": [
         {
-          "controller.render.geyser_cooldown.third_person": "!c.is_first_person"
+          "controller.render.geyser_cooldown.first_person": "c.is_first_person"
         },
         {
-          "controller.render.geyser_cooldown.first_person": "c.is_first_person"
+          "controller.render.geyser_cooldown.third_person": "!c.is_first_person"
         }
       ],
       "scripts": {

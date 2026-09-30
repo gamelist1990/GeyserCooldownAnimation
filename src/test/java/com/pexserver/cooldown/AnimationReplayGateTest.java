@@ -13,24 +13,17 @@ class AnimationReplayGateTest {
         return gate.accept(player, ticks, sequence, TimeUnit.MILLISECONDS.toNanos(millis));
     }
 
-    @Test void rapidClicksDoNotRestartOrExtendSwordRecovery() {
+    @Test void everyServerTickCanUpdateTimingWithoutReplayingArmAnimation() {
         assertTrue(click(13, 0, 0));
-        for (int time = 50; time < 650; time += 50) {
-            assertFalse(click(13, time, time));
+        for (int time = 50; time <= 650; time += 50) {
+            assertTrue(click(13, time, time));
         }
-        assertTrue(click(13, 650, 650));
     }
 
-    @Test void axeWaitsForVisualRecoveryBeyondServerCooldown() {
+    @Test void duplicateWithinSameTickIsSuppressedWithoutExtendingDeadline() {
         assertTrue(click(20, 1, 0));
-        assertFalse(click(20, 2, 1000));
-        assertTrue(click(20, 3, 1050));
-    }
-
-    @Test void weaponChangeCannotInterruptPreviousRecovery() {
-        assertTrue(click(34, 1, 0));
-        assertFalse(click(5, 2, 250));
-        assertTrue(click(5, 3, 1700));
+        assertFalse(click(20, 2, 20));
+        assertTrue(click(20, 3, 50));
     }
 
     @Test void duplicateSequenceIsRejectedAfterRecovery() {

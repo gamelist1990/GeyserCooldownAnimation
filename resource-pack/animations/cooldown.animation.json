@@ -4,185 +4,2073 @@
   "format_version": "1.8.0",
   "animations": {
     "animation.player.hand": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 0.25,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "0.25": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.sword": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 0.65,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "0.65": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.pickaxe": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 0.9,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "0.90": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.diamond_axe": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 1.05,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "1.05": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.iron_axe": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 1.15,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "1.15": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.stone_axe": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 1.3,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "1.30": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     },
     "animation.player.mace": {
-      "loop": "hold_on_last_frame",
-      "animation_length": 1.65,
-      "loop_delay": "0",
-      "bones": {
-        "rightArm": {
-          "position": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "0.125": [
-              0,
-              "variable.is_first_person && !query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_hoe') ? -20 : 0",
-              0
-            ],
-            "1.65": [
-              0,
-              0,
-              0
-            ]
-          }
-        }
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_1": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_2": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_3": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_4": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_5": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_6": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_7": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_8": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_9": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_10": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_11": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_12": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_13": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_14": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_15": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_16": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_17": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_18": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_19": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 0.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_20": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_21": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_22": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_23": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_24": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_25": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_26": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_27": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_28": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_29": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_30": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_31": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_32": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_33": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_34": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_35": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_36": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_37": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_38": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_39": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 1.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_40": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_41": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_42": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_43": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_44": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_45": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_46": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_47": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_48": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_49": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_50": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_51": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_52": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_53": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_54": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_55": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_56": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_57": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_58": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_59": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 2.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_60": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_61": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_62": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_63": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_64": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_65": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_66": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_67": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_68": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_69": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_70": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_71": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_72": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_73": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_74": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_75": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_76": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_77": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_78": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_79": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 3.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_80": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_81": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_82": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_83": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_84": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_85": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_86": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_87": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_88": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_89": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_90": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_91": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_92": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_93": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_94": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_95": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_96": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_97": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_98": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_99": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 4.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_100": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_101": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_102": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_103": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_104": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_105": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_106": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_107": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_108": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_109": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_110": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_111": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_112": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_113": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_114": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_115": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_116": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_117": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_118": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_119": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 5.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_120": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_121": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_122": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_123": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_124": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_125": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_126": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_127": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_128": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_129": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_130": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_131": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_132": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_133": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_134": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_135": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_136": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_137": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_138": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_139": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 6.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_140": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_141": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_142": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_143": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_144": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_145": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_146": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_147": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_148": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_149": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_150": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_151": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_152": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_153": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_154": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_155": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_156": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_157": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_158": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_159": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 7.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_160": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_161": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_162": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_163": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_164": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_165": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_166": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_167": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_168": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_169": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_170": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_171": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_172": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_173": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_174": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_175": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_176": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_177": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_178": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_179": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 8.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_180": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_181": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.050000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_182": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.100000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_183": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.150000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_184": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.200000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_185": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.250000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_186": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.300000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_187": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.350000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_188": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.400000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_189": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.450000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_190": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.500000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_191": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.550000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_192": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.600000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_193": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.650000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_194": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.700000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_195": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.750000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_196": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.800000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_197": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.850000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_198": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.900000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_199": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 9.950000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
+      }
+    },
+    "animation.player.cooldown_tick_200": {
+      "animation_length": 0.05,
+      "timeline": {
+        "0.0": [
+          "variable.gca_duration = 10.000000;",
+          "variable.gca_requested_at = query.life_time;",
+          "variable.gca_requested = 1;"
+        ]
       }
     }
   }

@@ -1,0 +1,113 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.geyser_cooldown.recovery_sword": {
+      "animation_length": 1.0,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "1.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          },
+          "position": {
+            "0.0": {
+              "post": [
+                0,
+                -10,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "1.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        }
+      },
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+    },
+    "animation.geyser_cooldown.recovery_axe": {
+      "animation_length": 1.0,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "1.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          },
+          "position": {
+            "0.0": {
+              "post": [
+                0,
+                -12,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "1.0": {
+              "post": [
+                0,
+                0,
+                0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        }
+      },
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+    },
+    "animation.geyser_cooldown.recovery_mace": {
+      "animation_length": 1.0,
+      "bones": {
+        "rightArm": {
+          "position": {
+            "0.0": [
+              0,
+              -12,
+              0
+            ],
+            "1.0": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+    }
+  }
+}

@@ -32,7 +32,11 @@
           "v.is_blinking = 0.0;",
           "v.last_blink_time = 0.0;",
           "v.hand_bob = 0.0;",
-          "v.melee_spear_java_to_bedrock_scale = 40.0;"
+          "v.melee_spear_java_to_bedrock_scale = 40.0;",
+          "variable.gca_duration = 0.65;",
+          "variable.gca_requested = 0;",
+          "variable.gca_requested_at = 0;",
+          "variable.gca_active_duration = 0.65;"
         ],
         "pre_animation": [
           "v.helmet_layer_visible = !query.has_head_gear;",
@@ -96,7 +100,8 @@
           "v.tp_melee_spear_attack_attachable_position_z = (t.melee_spear_attack_thrust_scale * -0.15 + t.melee_spear_attack_recover_scale * 0.15) * v.melee_spear_java_to_bedrock_scale;"
         ],
         "animate": [
-          "root"
+          "root",
+          "gca_recovery"
         ],
         "should_update_effects_offscreen": "1.0"
       },
@@ -171,7 +176,11 @@
         "brushing": "animation.humanoid.brushing",
         "attack_rotation_custom_sword": "animation.player.first_person.attack_rotation_custom_sword",
         "attack_rotation_custom_axe": "animation.player.first_person.attack_rotation_custom_axe",
-        "attack_rotation_custom_mace": "animation.player.first_person.attack_rotation_custom_mace"
+        "attack_rotation_custom_mace": "animation.player.first_person.attack_rotation_custom_mace",
+        "gca_recovery": "controller.animation.geyser_cooldown.recovery",
+        "gca_recovery_sword": "animation.geyser_cooldown.recovery_sword",
+        "gca_recovery_axe": "animation.geyser_cooldown.recovery_axe",
+        "gca_recovery_mace": "animation.geyser_cooldown.recovery_mace"
       },
       "render_controllers": [
         {

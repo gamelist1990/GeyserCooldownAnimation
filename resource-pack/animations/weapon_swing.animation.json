@@ -1,5 +1,3 @@
-// mc-disable resourcepack.model.bone.missing
-// rightArm belongs to the built-in player geometry.humanoid.custom.
 {
   "format_version": "1.8.0",
   "animations": {

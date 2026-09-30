@@ -44,74 +44,15 @@ Velocity経由の実接続とBedrock実機での表示は未検証です。
 
 ## 専用パック
 
-自作のmanifest・独自名前空間・数式によるアニメーションで構成した **MIT** のパックです。
-外部パックのテクスチャ・モデル・プレイヤー定義・コントローラは含めていません。
+剣・斧・メイスの一人称スイングと持ち方はBlurry's Crossplay Animations 2.0を基準にしています。
+クールダウンの腕下げはスイング終了後に再生し、剣10、斧・メイス12の下げ幅を使用します。
+剣・斧は参照元のCatmull-Rom補間、メイスは線形補間です。
 
-動きは、指定されたCooldown Animationの「0.125秒で下げ、その後戻す」という表示に合わせています。
-一人称で右腕を20モデル単位下げ、プロファイルに応じて元の位置に戻します。
+実効攻撃速度から算出したクールダウンを50ms刻み・1～200tickで通知します。
+通知は時間を更新するだけで、描画はBedrock側のcontrollerが担当します。
+連打時は回復を中断してスイングへ戻り、終了後に残り時間で復帰します。
+ツルハシ・hoe・シャベルはカスタム表示と腕下げの対象外です。
 
-| プロファイル | 元の位置に戻るまで |
-| --- | --- |
-| 素手 | 0.25秒 |
-| 剣 | 0.65秒 |
-| ツルハシ | 0.90秒 |
-| ダイヤ・金・ネザライト斧相当 | 1.05秒 |
-| 鉄斧相当 | 1.15秒 |
-| 木・石斧相当 | 1.30秒 |
-| メイス | 1.65秒 |
-
-実効攻撃速度から最も近い標準プロファイルを選びます。
-カスタム攻撃速度を連続的に反映する仕組みではありません。
-パックのソースと動作仕様は [resource-pack/README.md](resource-pack/README.md) を参照してください。
-
-## 表示の範囲
-
-| 対象 | 動作 |
-| --- | --- |
-| 攻撃したBedrockプレイヤー本人 | 一人称で手元を下げる |
-| Javaプレイヤー | アニメーションを送信しない |
-| 第三者のBedrockクライアント | この版では送信しない |
-| 三人称視点 | 専用パックの右腕オフセットは0 |
-| 採掘の左クリック | 再生要求を送信しない |
-
-## ビルド
-
-JDK 21と25、Python 3を用意します。拡張はJava 21、Paper連携はJava 25をターゲットにします。
-
-```bash
-./gradlew clean build
-python3 scripts/package_release.py --version 1.1.0
-```
-
-Windowsでは `gradlew.bat clean build` と `py scripts/package_release.py --version 1.1.0` を使います。
-パックのJSONソースを編集した場合も、Gradleが同梱版と単独版を作成します。
-
-| 配布資産 | 内容 |
-| --- | --- |
-| `GeyserCooldownAnimation-<version>.jar` | 専用パック入りGeyser拡張 |
-| `GeyserCooldownPaperBridge-<version>.jar` | Paper連携 |
-| `GeyserCooldownAnimation-pack-<version>.mcpack` | 専用パック単体 |
-| `GeyserCooldownAnimation-<version>.zip` | 両JAR、パック、導入手順、ライセンス |
-| `SHA256SUMS.txt` | 配布資産のチェックサム |
-
-出力先は `dist/` です。通常の導入ではパック単体の手動配置は不要です。
-
-## GitHub Actions
-
-- ブランチpush・pull request：ビルド、テスト、配布資産の検証、Actions成果物の保存。
-- `v1.1.0` のようなタグpush：タグのバージョンでビルドしてGitHub Releaseを自動作成。
-- `v1.1.0-rc.1`：プレリリースとして公開。
-
-```bash
-git tag v1.1.0
-git push origin v1.1.0
-```
-
-両JARのファイル名とメタデータをタグに合わせます。
-Bedrockのmanifestにはタグの数値部分を3要素のバージョンとして反映します。
-
-## ライセンス
-
-コードと専用パックは **MIT**。Copyright © 2026 gamelist1990 & Koukunn_。
-元のExtension TemplateのMIT著作権表示も保持しています。
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) で依存元・参考元を確認できます。
+ビルドごとにパックのheader/module UUIDを更新します。更新後はサーバーを再起動し、Bedrockクライアントで再接続してください。
+参考素材に本プロジェクトのMITライセンスは適用されません。出典は [素材通知](resource-pack/THIRD_PARTY_NOTICES.md) を参照してください。
+仕様は [パックREADME](resource-pack/README.md)、v1.2.0の変更は [リリース説明](docs/releases/v1.2.0.md) に記載しています。

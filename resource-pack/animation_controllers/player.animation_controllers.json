@@ -36,6 +36,100 @@
           ]
         }
       }
+    },
+    "controller.animation.geyser_cooldown.recovery": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && (query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+            }
+          ]
+        },
+        "waiting": {
+          "transitions": [
+            {
+              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+            },
+            {
+              "sword": "variable.attack_time <= 0 && query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword')"
+            },
+            {
+              "axe": "variable.attack_time <= 0 && query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident')"
+            },
+            {
+              "mace": "variable.attack_time <= 0 && query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace')"
+            }
+          ]
+        },
+        "sword": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_sword": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword'))"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "axe": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_axe": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident'))"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "mace": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_mace": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "!(query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        }
+      }
     }
   }
 }

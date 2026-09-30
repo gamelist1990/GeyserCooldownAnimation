@@ -27,7 +27,7 @@ public final class BedrockPacketSender {
                     type.getMethod("setNextState", String.class).invoke(packet, "default");
                     type.getMethod("setStopExpression", String.class).invoke(packet, "query.any_animation_finished");
                     type.getMethod("setStopExpressionVersion", int.class).invoke(packet, 0);
-                    type.getMethod("setController", String.class).invoke(packet, "__runtime_controller");
+                    type.getMethod("setController", String.class).invoke(packet, "geyser_cooldown_timing");
                     type.getMethod("setBlendOutTime", float.class).invoke(packet, 0.0f);
                     @SuppressWarnings("unchecked")
                     Collection<Long> ids = (Collection<Long>) type.getMethod("getRuntimeEntityIds").invoke(packet);

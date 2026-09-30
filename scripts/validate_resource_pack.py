@@ -20,10 +20,9 @@ def read_json(data):
 def validate_files(files, version=None):
     required = {
         "manifest.json", "pack_icon.png", "README.md", "THIRD_PARTY_NOTICES.md",
-        "animations/cooldown.animation.json", "animations/crossplay_weapons.animation.json",
-        "animations/mace.animation.json", "entity/player.entity.json",
+        "animations/cooldown.animation.json", "animations/weapon_swing.animation.json", "animations/recovery.animation.json", "entity/player.entity.json",
         "animation_controllers/player.animation_controllers.json",
-        "attachables/misc/mace.json", "models/entity/mace.json",
+        "attachables/misc/mace.json", "models/entity/item_first_person.json",
         "render_controllers/weapons.render_controllers.json",
     }
     if missing := required - files.keys():
@@ -56,7 +55,7 @@ def validate_files(files, version=None):
         if "minecraft:attachable" in doc:
             desc = doc["minecraft:attachable"]["description"]
             key = desc["identifier"]
-            if key in identifiers or key.endswith(("_pickaxe", "_hoe")):
+            if key in identifiers or key.endswith(("_pickaxe", "_hoe", "_shovel")):
                 raise ValueError(f"Duplicate or excluded attachable: {key}")
             identifiers.add(key)
             for geo in desc.get("geometry", {}).values():
@@ -82,7 +81,7 @@ def validate_files(files, version=None):
                 if key not in registries["render_controllers"]:
                     raise ValueError(f"{name}: missing render controller {key}")
     for key, animation in registries["animations"].items():
-        if key.startswith("animation.player.") and set(animation.get("bones", {})) != {"rightArm"}:
+        if key.startswith("animation.player.") and not ("timeline" in animation and not animation.get("bones")) and set(animation.get("bones", {})) != {"rightArm"}:
             raise ValueError(f"{key}: unexpected player bone")
     desc = docs["entity/player.entity.json"]["minecraft:client_entity"]["description"]
     controller = registries["animation_controllers"]["controller.animation.player.first_person_attack"]

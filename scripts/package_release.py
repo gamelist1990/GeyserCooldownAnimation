@@ -59,7 +59,11 @@ def main():
         artifacts.append(target)
     bundle = dist / f"GeyserCooldownAnimation-{version}.zip"
     docs = ["README.md", "INSTALL.md", "LICENSE",
-            "licenses/GeyserExtensionTemplate-MIT.txt"]
+            "licenses/GeyserExtensionTemplate-MIT.txt",
+            "resource-pack/README.md", "resource-pack/THIRD_PARTY_NOTICES.md"]
+    release_notes = f"docs/releases/v{version}.md"
+    if (ROOT / release_notes).is_file():
+        docs.append(release_notes)
     with zipfile.ZipFile(bundle, "w", zipfile.ZIP_DEFLATED) as archive:
         for source, folder, _ in sources:
             archive.write(source, f"{folder}/{source.name}")

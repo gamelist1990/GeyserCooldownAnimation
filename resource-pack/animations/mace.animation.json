@@ -4,16 +4,16 @@
     "animation.mace.first_person_hold": {
       "loop": true,
       "bones": {
-        "root_item": {
+        "rightitem": {
           "rotation": [
-            177.33579,
-            29.33874,
-            111.52537
+            212.88252,
+            -63.20524,
+            -242.56846
           ],
           "position": [
-            -1.19051,
-            21.57538,
-            -2.6966
+            -7.5789,
+            -1.06088,
+            -7.08756
           ]
         }
       }
@@ -21,18 +21,17 @@
     "animation.mace.third_person_hold": {
       "loop": true,
       "bones": {
-        "root_item": {
+        "rightitem": {
           "rotation": [
-            84.78937,
-            56.30348,
-            86.5496
+            0,
+            185,
+            0
           ],
           "position": [
-            0.5,
-            17.63835,
-            -0.53047
-          ],
-          "scale": 0.85
+            2,
+            -2.84701,
+            -10.62519
+          ]
         }
       }
     }

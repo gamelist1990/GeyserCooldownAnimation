@@ -57,12 +57,17 @@ jobs:
           else
             flags+=(--latest)
           fi
+          notes_flags=(--generate-notes)
+          notes_path="docs/releases/v$RELEASE_VERSION.md"
+          if [[ -f "$notes_path" ]]; then
+            notes_flags=(--notes-file "$notes_path")
+          fi
           gh release create "$RELEASE_TAG" \
             "dist/GeyserCooldownAnimation-$RELEASE_VERSION.jar" \
             "dist/GeyserCooldownPaperBridge-$RELEASE_VERSION.jar" \
             "dist/GeyserCooldownAnimation-pack-$RELEASE_VERSION.mcpack" \
             "dist/GeyserCooldownAnimation-$RELEASE_VERSION.zip" \
             "dist/SHA256SUMS.txt" \
-            --verify-tag --generate-notes \
+            --verify-tag "${notes_flags[@]}" \
             --title "GeyserCooldownAnimation $RELEASE_TAG" \
             "${flags[@]}"
