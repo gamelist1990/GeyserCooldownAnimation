@@ -2,101 +2,68 @@
 
 [READMEへ戻る](README.md)
 
-## 1. JARを配置
+## 1. 同じバージョンの2つのJARを配置
 
-GitHub Releasesから同じバージョンの2つのJARを取得します。
-導入用ZIPの `extensions/` と `plugins/` にも同じJARが入っています。
+[GitHub Releases](https://github.com/gamelist1990/GeyserCooldownAnimation/releases)から取得します。
 
 | ファイル | 配置先 |
 | --- | --- |
-| `GeyserCooldownAnimation-<version>.jar` | Geyserの `extensions/` |
-| `GeyserCooldownPaperBridge-<version>.jar` | 接続先Paperの `plugins/` |
+| GeyserCooldownAnimation-<version>.jar | Geyserの extensions/ |
+| GeyserCooldownPaperBridge-<version>.jar | 各Paperの plugins/ |
 
 | Geyser環境 | 拡張の配置例 |
 | --- | --- |
-| Geyser-Spigot | `plugins/Geyser-Spigot/extensions/` |
-| Geyser-Velocity | `plugins/Geyser-Velocity/extensions/` |
-| Standalone | 実行ディレクトリの `extensions/` |
+| Geyser-Spigot | plugins/Geyser-Spigot/extensions/ |
+| Geyser-Velocity | plugins/Geyser-Velocity/extensions/ |
+| Standalone | 実行ディレクトリの extensions/ |
 
-フォルダ名は実際のGeyserインストールに合わせてください。
 GeyserはJava 21以上、PaperはJava 25以上・26.3が必要です。
+Velocityでは拡張をGeyser-Velocityに置き、連携JARを各Paperに置きます。
 
-**GeyserとPaperは同じホスト上で、127.0.0.1を通じて通信できる必要があります。**
-VelocityへPaper連携JARを置くことはできません。
+## 2. 起動する
 
-## 2. 起動してtokenを設定
+**token・endpoint・ポート設定は不要です。**
+プレイヤーの既存のMinecraft接続で攻撃情報を運びます。
+GeyserとPaperが別ホストでも、この拡張用のネットワーク設定は必要ありません。
+通常のGeyser・Velocity・Paperの接続設定は済ませてください。
 
-GeyserとPaperを起動すると次のファイルが生成されます。
-
-| ファイル | 用途 |
-| --- | --- |
-| Geyserの `extensions/geyser-cooldown-animation/bridge.properties` | port・認証token |
-| Geyserの `extensions/geyser-cooldown-animation/geyser-cooldown-animation.mcpack` | 自動展開された専用パック |
-| Paperの `plugins/GeyserCooldownPaperBridge/config.yml` | 送信先・認証token |
-
-Geyserの `token=` の右側を、Paperの `token` にコピーします。
-
-```yaml
-token: 'Geyserのbridge.propertiesに生成されたtoken'
-endpoint: 'http://127.0.0.1:28765/v1/attack'
-```
-
-設定を保存してPaperを再起動してください。
-tokenが空の初回起動ではPaper連携が無効になります。
-tokenは公開リポジトリへコミットしないでください。
-
-ポートを変える場合、Geyserの `port` とPaperの `endpoint` を合わせて両方再起動します。
-外部IP・別ホスト・別ネットワーク名前空間のコンテナ間通信はこの版では対応していません。
-
-## 3. Bedrockでパックを適用
-
-ログに次の表示が出ることを確認します。
+ログで次を確認します。
 
 ```text
-Enabled extension GeyserCooldownAnimation
-Cooldown animation bridge listening on 127.0.0.1:28765
+Cooldown animation enabled; no token, endpoint or HTTP port required.
+Cooldown animation bridge enabled; no configuration required.
 ```
 
-Bedrockから再接続し、サーバーのリソースパックを適用します。
-Geyser 2.11.3では `gameplay.force-resource-packs: true` でパック適用を必須にできます。
+## 3. Bedrockから接続してパックを適用
 
-専用パックはJARから自動配布されます。
-単体のmcpackをGeyserのpacksフォルダへ重ねて配置する必要はありません。
-データフォルダの専用パックは起動時にJARの内容へ更新されるため、直接の編集は保持されません。
+専用MITパックは拡張JARから自動展開され、Geyser経由で配布されます。
+単体mcpackを重ねて配置する必要はありません。
+サーバーパックを適用し、一人称で素手・剣・各ツールの攻撃と空振りを確認してください。
 
-## 4. 表示を確認
+自動展開されたパックを直接編集しても、次回起動時にJARの内容へ更新されます。
+Geyserの受信アダプタは実パケットクラスで検証済みですが、Paperの実攻撃イベント・Velocity経由の実接続・Bedrock実機の見た目は未検証です。
 
-素手・剣・ツルハシ・各斧・メイスで、攻撃と空振りを確認します。
-一人称で手元が下がり、プロファイルに応じた時間で元へ戻る想定です。
-三人称の右腕位置には専用パックの追加オフセットを適用しません。
-
-連打・武器切り替え・カスタム攻撃速度・他の描画パックとの組み合わせも確認してください。
-Geyserのロード・パック登録・通信は検証済みですが、Bedrock実機の見た目は未検証です。
-
-## 更新
+## 1.0.0から更新する場合
 
 1. GeyserとPaperを停止。
-2. 旧バージョンの両JARを取り除き、新バージョンを配置。
-3. token設定を維持して起動。
-4. Bedrockから再接続して確認。
+2. 旧版の両JARを取り除き、同じ新バージョンの両JARを配置。
+3. 起動してBedrockから再接続。
 
-異なるバージョンのJARを複数配置しないでください。
-以前の外部パック `cooldown-geyser.mcpack` はこの版では使いません。
-以前それをGeyserのpacksフォルダへ手動配置していた場合は、停止中に取り除いてください。
+旧bridge.propertiesとPaper側config.ymlは使用しません。残っていても構いません。
+以前手動配置した同じUUIDのパックがある場合は、停止中に取り除いてください。
 
 ## トラブルシューティング
 
 | 症状 | 確認する内容 |
 | --- | --- |
-| 拡張がロードされない | 配置先、Java 21以上、Geyser API対応版 |
-| `Bundled Geyser Cooldown Animation pack missing` | 配布JARが完全か。公式Release資産を再取得 |
-| パック登録に失敗する | 同じUUIDのパックを重複配置していないか、JARの破損 |
-| Paper連携が無効になる | token設定、Java 25以上、Paper 26.3 |
-| `Cooldown bridge unavailable` | Geyserの起動、同一ホスト、port・token一致 |
-| `Unsupported Geyser packet API` | 対応版へ更新して再起動 |
-| 通信しているが表示されない | Bedrockへのパック適用、描画パックの競合、一人称視点 |
+| 拡張がロードされない | 配置先、Java 21以上、Geyser対応版 |
+| Paper連携がロードされない | Paper側への配置、Java 25以上、Paper 26.3 |
+| パック登録に失敗する | 同じUUIDのパックの重複、配布JARの破損 |
+| Cooldown message adapter unavailable | Geyser内部APIの対応版。ログを添えて報告 |
+| Unsupported Geyser packet API | Geyser対応版へ更新して再起動 |
+| サーバー移動後だけ表示されない | 移動先Paperにも同じ版の連携JARがあるか |
+| 動かない | サーバーパック適用、一人称視点、他のパックとの競合、専用チャンネルgeyser_cooldown:attackを他プラグインが遮断していないか |
 
 ## 削除
 
 GeyserとPaperを停止して両JARと対応するデータフォルダを削除します。
-Bedrockのローカルパックキャッシュが残る場合はクライアント側でも整理してください。

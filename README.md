@@ -7,15 +7,15 @@ Paperの攻撃速度に応じて、攻撃したBedrockプレイヤー本人へ�
 
 [導入ガイド](INSTALL.md) · [MIT License](LICENSE)
 
-> 開発段階です。Geyser上のロード・パック登録・通信は確認済みですが、Paperの実際の攻撃イベントとBedrock実機の表示は未検証です。
+> 開発段階です。Geyser上のロード・パック登録・受信処理は確認済みですが、Paperの実際の攻撃イベント・Velocity経由の実接続・Bedrock実機の表示は未検証です。
 
 ## 機能
 
 - 素手・剣・ツルハシ・斧・メイスの7つの表示プロファイル。
 - 攻撃時に手を下げ、クールダウンに合わせて戻す一人称アニメーション。
 - 専用パックの自動展開とGeyser経由の配布。
-- 同じtickの重複抑制、バックグラウンド通信、古い送信待ち要求の破棄。
-- token認証付きのローカル通信。
+- 同じtickの重複抑制と、プレイヤーの既存接続を使う通信。
+- token・endpoint・追加ポート・設定ファイル不要。
 - 内部APIの非互換時に表示機能を停止。
 
 ## 対応環境
@@ -26,16 +26,18 @@ Paperの攻撃速度に応じて、攻撃したBedrockプレイヤー本人へ�
 | GeyserCooldownPaperBridge | Paperの `plugins/` | Java 25以上、Paper 26.3 |
 | 専用リソースパック | 拡張JARに同梱 | Bedrockでサーバーパックを適用 |
 
-Geyser-SpigotとPaperの同居、または同じホスト上のGeyser Standalone / Velocity等とPaperを想定しています。
-通信は `127.0.0.1` のみです。別ホスト・別ネットワーク名前空間のコンテナは未対応です。
-Geyser Standalone 2.11.3-b1247でロード・通信を確認済み。Velocity経由の実動作は未検証です。
+Geyser-Spigot、Geyser-Velocity、Standaloneから、既存のMinecraft接続でPaperと連携します。
+別ホストでも追加のHTTP通信設定は不要です。Velocity専用の追加JARも不要です。
+Geyser 2.11.3-b1247の実パケットクラスで受信処理を検証済み。
+Velocity経由の実接続とBedrock実機での表示は未検証です。
 
 ## 導入
 
 1. GitHub **Releases** から同じバージョンの2つのJAR、または導入用ZIPを取得。
 2. Geyserのextensionsへ拡張、Paperのpluginsへ連携JARを配置。
-3. 起動して、Geyser側のtokenをPaper側のconfig.ymlへコピー。
-4. Paperを再起動し、Bedrockから再接続してパックを適用。
+3. 起動し、Bedrockから接続してサーバーパックを適用。
+
+設定ファイルの編集は不要です。Velocity構成では各Paperサーバーへ連携JARを配置します。
 
 詳しいフォルダ例と設定は [INSTALL.md](INSTALL.md) を参照してください。
 
@@ -77,10 +79,10 @@ JDK 21と25、Python 3を用意します。拡張はJava 21、Paper連携はJava
 
 ```bash
 ./gradlew clean build
-python3 scripts/package_release.py --version 1.0.0
+python3 scripts/package_release.py --version 1.1.0
 ```
 
-Windowsでは `gradlew.bat clean build` と `py scripts/package_release.py --version 1.0.0` を使います。
+Windowsでは `gradlew.bat clean build` と `py scripts/package_release.py --version 1.1.0` を使います。
 パックのJSONソースを編集した場合も、Gradleが同梱版と単独版を作成します。
 
 | 配布資産 | 内容 |
@@ -96,12 +98,12 @@ Windowsでは `gradlew.bat clean build` と `py scripts/package_release.py --ver
 ## GitHub Actions
 
 - ブランチpush・pull request：ビルド、テスト、配布資産の検証、Actions成果物の保存。
-- `v1.0.0` のようなタグpush：タグのバージョンでビルドしてGitHub Releaseを自動作成。
+- `v1.1.0` のようなタグpush：タグのバージョンでビルドしてGitHub Releaseを自動作成。
 - `v1.1.0-rc.1`：プレリリースとして公開。
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.1.0
+git push origin v1.1.0
 ```
 
 両JARのファイル名とメタデータをタグに合わせます。
