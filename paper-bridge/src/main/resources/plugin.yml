@@ -1,0 +1,5 @@
+name: GeyserCooldownPaperBridge
+version: ${version}
+main: com.pexserver.cooldown.paper.CooldownBridge
+api-version: '26.3'
+description: Sends attack cooldown animation requests to Geyser

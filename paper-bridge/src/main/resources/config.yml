@@ -1,0 +1,3 @@
+# Copy the token from extensions/geyser-cooldown-animation/bridge.properties.
+token: ''
+endpoint: 'http://127.0.0.1:28765/v1/attack'

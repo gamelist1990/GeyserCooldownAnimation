@@ -1,0 +1,96 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.geyser_cooldown.hand": {
+      "loop": false,
+      "animation_length": 0.25,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (0.250 - query.anim_time) / 0.125), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.sword": {
+      "loop": false,
+      "animation_length": 0.65,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (0.650 - query.anim_time) / 0.525), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.pickaxe": {
+      "loop": false,
+      "animation_length": 0.9,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (0.900 - query.anim_time) / 0.775), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.diamond_axe": {
+      "loop": false,
+      "animation_length": 1.05,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (1.050 - query.anim_time) / 0.925), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.iron_axe": {
+      "loop": false,
+      "animation_length": 1.15,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (1.150 - query.anim_time) / 1.025), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.stone_axe": {
+      "loop": false,
+      "animation_length": 1.3,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (1.300 - query.anim_time) / 1.175), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.mace": {
+      "loop": false,
+      "animation_length": 1.65,
+      "bones": {
+        "rightarm": {
+          "position": [
+            0.0,
+            "query.is_first_person ? -20.0 * math.clamp(math.min(query.anim_time / 0.125, (1.650 - query.anim_time) / 1.525), 0.0, 1.0) : 0.0",
+            0.0
+          ]
+        }
+      }
+    }
+  }
+}
