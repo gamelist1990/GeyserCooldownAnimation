@@ -17,13 +17,13 @@ Blurry単体の剣0.3秒・斧1.0417秒・メイス2秒という固定時間は�
 サーバー通知時間を優先した分の違いは残ります。
 
 ## 重複と送信
-同じsequenceまたは45ms以内の通知だけを抑制し、各server tickの時間更新を許可します。
+同じsequenceまたは45ms以内の通知だけを抑制し、Geyserの新しいクールダウン開始時刻ごとの時間更新を許可します。
 通知は動きを直接再開しないため、連打で腕下げアニメーションが積み重なりません。
 packetのruntime controllerはgeyser_cooldown_timingという専用名です。
 
 ## ビルド・確認
 ./gradlew.bat build
-python scripts/package_release.py --version 1.2.0
+python scripts/package_release.py --version 1.3.0
 生成対象はcooldown.animation.json（タイミング通知）です。
 weapon_swing.animation.json / recovery.animation.jsonは参考元ベースの定義です。
 ビルドごとにheader/module UUIDを更新します。

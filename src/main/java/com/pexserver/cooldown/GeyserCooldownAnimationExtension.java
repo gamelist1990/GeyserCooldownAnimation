@@ -25,21 +25,21 @@ public final class GeyserCooldownAnimationExtension implements Extension {
             logger().info("Cooldown resource pack registered: " + resource.uuid());
         } catch (Exception e) { packReady = false; logger().error("Cooldown pack registration failed: " + e.getClass().getSimpleName() + ": " + e.getMessage()); }
     }
-    private final JavaMessageReceiver receiver = new JavaMessageReceiver();
+    private final GeyserCooldownObserver observer = new GeyserCooldownObserver();
     @Subscribe public void start(GeyserPostInitializeEvent event) {
         for (var connection : GeyserApi.api().onlineConnections()) attach(connection);
         logger().info("Cooldown animation initialized; resourcePackReady=" + packReady + ".");
     }
     @Subscribe public void join(org.geysermc.geyser.api.event.bedrock.SessionJoinEvent event) { attach(event.connection()); }
     @Subscribe public void disconnect(org.geysermc.geyser.api.event.bedrock.SessionDisconnectEvent event) {
-        receiver.detach(event.connection());
+        observer.detach(event.connection());
         UUID uuid = event.connection().javaUuid();
         if (uuid != null) replayGate.remove(uuid);
     }
     private void attach(org.geysermc.geyser.api.connection.GeyserConnection connection) {
-        try { receiver.attach(connection, (ticks, sequence) -> playAnimation(connection.javaUuid(), ticks, sequence), logger()::info); }
-        catch (Exception e) {
-            logger().error("Cooldown message adapter unavailable for " + connection.getClass().getName()
+        try { observer.attach(connection, (ticks, sequence) -> playAnimation(connection.javaUuid(), ticks, sequence), logger()::info); }
+        catch (Exception | LinkageError e) {
+            logger().error("Geyser cooldown observer unavailable for " + connection.getClass().getName()
                 + ": " + e.getClass().getSimpleName() + ": " + e.getMessage());
         }
     }
@@ -61,5 +61,5 @@ public final class GeyserCooldownAnimationExtension implements Extension {
         String animation = AnimationSelector.select(ticks);
         sender.send(connection, animation, logger()::info);
     }
-    @Subscribe public void shutdown(GeyserShutdownEvent event) { receiver.close(); replayGate.clear(); }
+    @Subscribe public void shutdown(GeyserShutdownEvent event) { observer.close(); replayGate.clear(); }
 }

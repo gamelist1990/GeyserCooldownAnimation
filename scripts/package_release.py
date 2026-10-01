@@ -21,7 +21,6 @@ def main():
         parser.error("Use a version such as 1.0.0 or 1.1.0-rc.1")
     sources = [
         (ROOT / "build/libs" / f"GeyserCooldownAnimation-{version}.jar", "extensions", "extension.yml"),
-        (ROOT / "paper-bridge/build/libs" / f"GeyserCooldownPaperBridge-{version}.jar", "plugins", "plugin.yml"),
     ]
     pack_path = ROOT / "build/resource-pack" / f"GeyserCooldownAnimation-pack-{version}.mcpack"
     if not pack_path.is_file():
