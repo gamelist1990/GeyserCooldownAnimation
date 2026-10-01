@@ -56,3 +56,7 @@ Velocity経由の実接続とBedrock実機での表示は未検証です。
 ビルドごとにパックのheader/module UUIDを更新します。更新後はサーバーを再起動し、Bedrockクライアントで再接続してください。
 参考素材に本プロジェクトのMITライセンスは適用されません。出典は [素材通知](resource-pack/THIRD_PARTY_NOTICES.md) を参照してください。
 仕様は [パックREADME](resource-pack/README.md)、v1.2.0の変更は [リリース説明](docs/releases/v1.2.0.md) に記載しています。
+
+## パケット送信
+
+1.2.1ではGeyserSessionを型付きで呼び出し、接続のCloudburst codecを使ってアニメーションパケットを生成します。リフレクションは使用しません。クライアントの初期化・スポーンが完了した接続へ送信します。
