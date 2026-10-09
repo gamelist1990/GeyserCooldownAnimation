@@ -72,4 +72,7 @@ Geyserの実効攻撃速度とtick速度から残り時間を算出し、20ms刻
 
 ## GeyserJavaGlowing との併用
 
-元の両パックは player 定義が競合するため、[Glowing 互換版の導入手順](docs/glowing-compatibility.md)を参照してください。互換版の2つのJARとmcpack、生成スクリプト、検証結果を GeyserJavaGlowing リポジトリに保存しています。
+1.3.1 以降は GeyserJavaGlowing 0.2.1 以降と同じ統合済み `entity/player.entity.json` を同梱します。
+Cooldown の `gca_*` / recovery controller と Glowing の輪郭描画定義を1つの player 定義に保持するため、2つのパックの優先順に依存しません。
+通常の2つの拡張 JAR を Geyser の `extensions/` に置くだけで併用でき、専用の互換 JAR / mcpack は不要です。
+詳細は [Glowing 互換性](docs/glowing-compatibility.md) を参照してください。
