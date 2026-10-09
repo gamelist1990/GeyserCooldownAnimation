@@ -8,8 +8,8 @@ public final class AnimationPacketSmoke {
     public static void main(String[] args) throws Exception {
         var codec = Bedrock_v748.CODEC;
         var helper = codec.createHelper();
-        for (int ticks = 1; ticks <= 200; ticks++) {
-            String name = "animation.player.cooldown_tick_" + ticks;
+        for (int ticks = 1; ticks <= 500; ticks++) {
+            String name = "animation.player.cooldown_20ms_" + ticks;
             long id = 0x1_0000_0000L + ticks;
             var packet = AnimationPacketFactory.create(codec, helper, name, id);
             if (!packet.getAnimation().equals(name) || packet.getRuntimeEntityIds().size() != 1
@@ -21,6 +21,6 @@ public final class AnimationPacketSmoke {
                 if (!copy.equals(packet) || bytes.isReadable()) throw new AssertionError("Codec round-trip");
             } finally { bytes.release(); }
         }
-        System.out.println("PASS: 200 packet round-trips using the installed Spigot codec, without reflection.");
+        System.out.println("PASS: 500 packet round-trips using the installed Spigot codec, without reflection.");
     }
 }

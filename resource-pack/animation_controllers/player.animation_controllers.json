@@ -7,16 +7,16 @@
         "default": {
           "animations": [
             {
-              "first_person_attack_rotation": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+              "first_person_attack_rotation": "!(variable.gca_sword || variable.gca_tool || variable.gca_axe || variable.gca_mace || variable.gca_spear)"
             },
             {
-              "attack_rotation_custom_sword": "query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword')"
+              "attack_rotation_custom_sword": "variable.gca_sword || variable.gca_tool"
             },
             {
-              "attack_rotation_custom_axe": "query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident')"
+              "attack_rotation_custom_axe": "variable.gca_axe"
             },
             {
-              "attack_rotation_custom_mace": "query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace')"
+              "attack_rotation_custom_mace": "variable.gca_mace"
             }
           ],
           "transitions": [
@@ -43,30 +43,42 @@
         "idle": {
           "transitions": [
             {
-              "waiting": "variable.gca_requested && (query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+              "waiting": "variable.gca_requested && (variable.gca_hand || variable.gca_sword || variable.gca_axe || variable.gca_mace || variable.gca_tool || variable.gca_trident)"
             }
+          ],
+          "on_entry": [
+            "variable.gca_requested = 0;"
           ]
         },
         "waiting": {
           "transitions": [
             {
-              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword') || query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident') || query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+              "idle": "!(variable.gca_hand || variable.gca_sword || variable.gca_axe || variable.gca_mace || variable.gca_tool || variable.gca_trident) || query.life_time - variable.gca_requested_at >= variable.gca_duration"
             },
             {
-              "sword": "variable.attack_time <= 0 && query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword')"
+              "hand": "variable.gca_hand"
             },
             {
-              "axe": "variable.attack_time <= 0 && query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident')"
+              "sword": "variable.attack_time <= 0 && variable.gca_sword"
             },
             {
-              "mace": "variable.attack_time <= 0 && query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace')"
+              "axe": "variable.attack_time <= 0 && variable.gca_axe"
+            },
+            {
+              "mace": "variable.attack_time <= 0 && variable.gca_mace"
+            },
+            {
+              "tool": "variable.attack_time <= 0 && variable.gca_tool"
+            },
+            {
+              "trident": "variable.gca_trident"
             }
           ]
         },
         "sword": {
           "on_entry": [
             "variable.gca_requested = 0;",
-            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
           ],
           "animations": [
             {
@@ -75,10 +87,13 @@
           ],
           "transitions": [
             {
-              "waiting": "variable.attack_time > 0"
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
             },
             {
-              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword'))"
+              "idle": "!variable.gca_sword || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
             },
             {
               "idle": "query.all_animations_finished"
@@ -88,7 +103,7 @@
         "axe": {
           "on_entry": [
             "variable.gca_requested = 0;",
-            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
           ],
           "animations": [
             {
@@ -97,10 +112,13 @@
           ],
           "transitions": [
             {
-              "waiting": "variable.attack_time > 0"
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
             },
             {
-              "idle": "!(query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe', 'minecraft:is_trident'))"
+              "idle": "!variable.gca_axe || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
             },
             {
               "idle": "query.all_animations_finished"
@@ -110,7 +128,7 @@
         "mace": {
           "on_entry": [
             "variable.gca_requested = 0;",
-            "variable.gca_active_duration = math.max(0.05, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
           ],
           "animations": [
             {
@@ -119,13 +137,77 @@
           ],
           "transitions": [
             {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_mace || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
               "waiting": "variable.attack_time > 0"
             },
             {
-              "idle": "!(query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace'))"
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "hand": {
+          "on_entry": [
+            "variable.gca_requested = 0;"
+          ],
+          "animations": [
+            {
+              "gca_recovery_hand": "variable.is_first_person && !variable.is_using_vr && !query.is_using_item"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_hand || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            }
+          ]
+        },
+        "tool": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_sword": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_tool || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
             },
             {
               "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "trident": {
+          "on_entry": [
+            "variable.gca_requested = 0;"
+          ],
+          "animations": [
+            {
+              "gca_recovery_trident": "variable.is_first_person && !variable.is_using_vr && !query.is_using_item"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_trident || query.life_time - variable.gca_requested_at >= variable.gca_duration"
             }
           ]
         }

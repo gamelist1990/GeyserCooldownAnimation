@@ -36,6 +36,18 @@
         "texture.default",
         "texture.enchanted"
       ]
+    },
+    "controller.render.geyser_cooldown.item_default": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "texture.default",
+        "texture.enchanted"
+      ]
     }
   }
 }

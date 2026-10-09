@@ -36,7 +36,17 @@
           "variable.gca_duration = 0.65;",
           "variable.gca_requested = 0;",
           "variable.gca_requested_at = 0;",
-          "variable.gca_active_duration = 0.65;"
+          "variable.gca_active_duration = 0.65;",
+          "variable.gca_hand = 0;",
+          "variable.gca_sword = 0;",
+          "variable.gca_axe = 0;",
+          "variable.gca_mace = 0;",
+          "variable.gca_tool = 0;",
+          "variable.gca_trident = 0;",
+          "variable.gca_spear = 0;",
+          "variable.gca_elapsed = 0;",
+          "variable.gca_lower_duration = 0.125;",
+          "variable.gca_lower_amount = 0;"
         ],
         "pre_animation": [
           "v.helmet_layer_visible = !query.has_head_gear;",
@@ -97,7 +107,17 @@
           "v.fp_melee_spear_attack_attachable_rotation_z = t.melee_spear_attack_raise_scale * 40.0 + t.melee_spear_attack_recover_scale * -40.0;",
           "v.tp_melee_spear_attack_arm_rotation_x = t.melee_spear_attack_raise_scale * 90.0 + t.melee_spear_attack_thrust_scale * -120.0 + t.melee_spear_attack_recover_scale * 30.0;",
           "v.tp_melee_spear_attack_item_rotation_x = t.melee_spear_attack_thrust_scale * 60.0 + t.melee_spear_attack_recover_scale * -60.0;",
-          "v.tp_melee_spear_attack_attachable_position_z = (t.melee_spear_attack_thrust_scale * -0.15 + t.melee_spear_attack_recover_scale * 0.15) * v.melee_spear_java_to_bedrock_scale;"
+          "v.tp_melee_spear_attack_attachable_position_z = (t.melee_spear_attack_thrust_scale * -0.15 + t.melee_spear_attack_recover_scale * 0.15) * v.melee_spear_java_to_bedrock_scale;",
+          "variable.gca_hand = !query.is_item_equipped('main_hand');",
+          "variable.gca_sword = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword');",
+          "variable.gca_axe = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe');",
+          "variable.gca_mace = query.is_item_name_any('slot.weapon.mainhand', 'minecraft:mace');",
+          "variable.gca_tool = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_pickaxe', 'minecraft:is_shovel');",
+          "variable.gca_trident = query.is_item_name_any('slot.weapon.mainhand', 'minecraft:trident');",
+          "variable.gca_spear = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_spear');",
+          "variable.gca_elapsed = math.max(0, query.life_time - variable.gca_requested_at);",
+          "variable.gca_lower_duration = math.min(0.125, math.max(variable.gca_duration, 0.02) * 0.5);",
+          "variable.gca_lower_amount = math.clamp(variable.gca_elapsed / variable.gca_lower_duration, 0, 1) - math.clamp((variable.gca_elapsed - variable.gca_lower_duration) / (math.max(variable.gca_duration, 0.02) - variable.gca_lower_duration), 0, 1);"
         ],
         "animate": [
           "root",
@@ -180,7 +200,10 @@
         "gca_recovery": "controller.animation.geyser_cooldown.recovery",
         "gca_recovery_sword": "animation.geyser_cooldown.recovery_sword",
         "gca_recovery_axe": "animation.geyser_cooldown.recovery_axe",
-        "gca_recovery_mace": "animation.geyser_cooldown.recovery_mace"
+        "gca_recovery_mace": "animation.geyser_cooldown.recovery_mace",
+        "gca_recovery_hand": "animation.geyser_cooldown.recovery_hand",
+        "gca_recovery_tool": "animation.geyser_cooldown.recovery_tool",
+        "gca_recovery_trident": "animation.geyser_cooldown.recovery_trident"
       },
       "render_controllers": [
         {

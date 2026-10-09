@@ -55,8 +55,8 @@ def validate_files(files, version=None):
         if "minecraft:attachable" in doc:
             desc = doc["minecraft:attachable"]["description"]
             key = desc["identifier"]
-            if key in identifiers or key.endswith(("_pickaxe", "_hoe", "_shovel")):
-                raise ValueError(f"Duplicate or excluded attachable: {key}")
+            if key in identifiers:
+                raise ValueError(f"Duplicate attachable: {key}")
             identifiers.add(key)
             for geo in desc.get("geometry", {}).values():
                 if geo not in geometries and not any(
@@ -69,29 +69,50 @@ def validate_files(files, version=None):
             continue
         desc = doc["minecraft:attachable"]["description"]
         bones = set().union(*(geometries[g] for g in desc.get("geometry", {}).values()))
-        for animation in desc.get("animations", {}).values():
+        aliases = desc.get("animations", {})
+        for animation in aliases.values():
             if animation in registries["animations"]:
                 unknown = registries["animations"][animation].get("bones", {}).keys() - bones
                 if unknown:
                     raise ValueError(f"{name}: missing bones {sorted(unknown)}")
+            elif animation in registries["animation_controllers"]:
+                controller = registries["animation_controllers"][animation]
+                for state in controller["states"].values():
+                    for entry in state.get("animations", []):
+                        for alias in ([entry] if isinstance(entry, str) else entry):
+                            if alias not in aliases:
+                                raise ValueError(f"{name}: missing controller animation alias {alias}")
+                    for transition in state.get("transitions", []):
+                        if transition.keys() - controller["states"].keys():
+                            raise ValueError(f"{name}: missing controller state")
             elif animation not in {"animation.bow.wield", "animation.bow.wield_first_person_pull"}:
                 raise ValueError(f"{name}: missing animation {animation}")
         for controller in desc["render_controllers"]:
             for key in ([controller] if isinstance(controller, str) else controller):
                 if key not in registries["render_controllers"]:
                     raise ValueError(f"{name}: missing render controller {key}")
+        for entry in desc.get("scripts", {}).get("animate", []):
+            for alias in ([entry] if isinstance(entry, str) else entry):
+                if alias not in aliases:
+                    raise ValueError(f"{name}: missing script animation alias {alias}")
+    materials = ("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite")
+    expected = {f"minecraft:{material}_{kind}" for material in materials for kind in ("pickaxe", "shovel", "spear")}
+    expected |= {"minecraft:trident", "minecraft:mace"}
+    if missing := expected - identifiers:
+        raise ValueError(f"Missing supported attachables: {sorted(missing)}")
     for key, animation in registries["animations"].items():
         if key.startswith("animation.player.") and not ("timeline" in animation and not animation.get("bones")) and set(animation.get("bones", {})) != {"rightArm"}:
             raise ValueError(f"{key}: unexpected player bone")
     desc = docs["entity/player.entity.json"]["minecraft:client_entity"]["description"]
-    controller = registries["animation_controllers"]["controller.animation.player.first_person_attack"]
-    for state in controller["states"].values():
+    player_controllers = [registries["animation_controllers"][name] for name in (
+        "controller.animation.player.first_person_attack", "controller.animation.geyser_cooldown.recovery")]
+    for state in (state for controller in player_controllers for state in controller["states"].values()):
         for entry in state.get("animations", []):
             for alias in ([entry] if isinstance(entry, str) else entry):
                 target = desc["animations"].get(alias)
                 if not target:
                     raise ValueError(f"Missing player animation alias {alias}")
-                if alias.startswith("attack_rotation_custom_") and target not in registries["animations"]:
+                if alias.startswith(("attack_rotation_custom_", "gca_recovery_")) and target not in registries["animations"]:
                     raise ValueError(f"Missing custom player animation {target}")
 
 

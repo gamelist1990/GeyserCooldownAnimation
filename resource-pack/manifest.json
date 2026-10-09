@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Geyser Cooldown Crossplay Weapons",
-    "description": "Crossplay sword, axe and mace animations with Geyser cooldown integration",
+    "description": "Server-timed cooldown for hands, swords, axes, spears, tridents, maces, pickaxes and shovels",
     "uuid": "63334f66-a14a-491a-a920-674730d96411",
     "version": [
       1,

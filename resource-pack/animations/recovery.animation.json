@@ -43,7 +43,7 @@
           }
         }
       },
-      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.02)"
     },
     "animation.geyser_cooldown.recovery_axe": {
       "animation_length": 1.0,
@@ -87,7 +87,7 @@
           }
         }
       },
-      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.02)"
     },
     "animation.geyser_cooldown.recovery_mace": {
       "animation_length": 1.0,
@@ -107,7 +107,43 @@
           }
         }
       },
-      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.05)"
+      "anim_time_update": "query.anim_time + query.delta_time / math.max(variable.gca_active_duration, 0.02)"
+    },
+    "animation.geyser_cooldown.recovery_hand": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "position": [
+            0,
+            "-20 * variable.gca_lower_amount",
+            0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.recovery_tool": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "position": [
+            0,
+            "-20 * variable.gca_lower_amount",
+            0
+          ]
+        }
+      }
+    },
+    "animation.geyser_cooldown.recovery_trident": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "position": [
+            0,
+            "-20 * variable.gca_lower_amount",
+            0
+          ]
+        }
+      }
     }
   }
 }

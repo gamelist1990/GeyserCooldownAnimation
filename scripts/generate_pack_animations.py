@@ -1,24 +1,16 @@
 #!/usr/bin/env python3
-"""Generate this project's authored, formula-based hand-lowering animations."""
+"""Generate timing-only signals for server cooldowns in 20 ms steps."""
 import argparse
 import json
 from pathlib import Path
 
-# Visible lowering/recovery timings requested by the user, in seconds.
-PROFILES = {
-    "hand": 0.25,
-    "sword": 0.65,
-    "pickaxe": 0.90,
-    "diamond_axe": 1.05,
-    "iron_axe": 1.15,
-    "stone_axe": 1.30,
-    "mace": 1.65,
-}
+STEP_MILLIS = 20
+MAX_STEPS = 10_000 // STEP_MILLIS
 def cooldown_animation(duration):
     # Server packets only update timing metadata. The local controller owns
-    # the visible recovery and waits for Bedrock's swing to finish.
+    # the visible recovery, including the swing wait for swords/axes/maces.
     return {
-        "animation_length": 0.05,
+        "animation_length": STEP_MILLIS / 1000,
         "timeline": {"0.0": [
             f"variable.gca_duration = {duration:.6f};",
             "variable.gca_requested_at = query.life_time;",
@@ -29,13 +21,9 @@ def cooldown_animation(duration):
 
 def definitions():
     animations = {
-        "animation.player." + name: cooldown_animation(duration)
-        for name, duration in PROFILES.items()
+        f"animation.player.cooldown_20ms_{ticks}": cooldown_animation(ticks * STEP_MILLIS / 1000)
+        for ticks in range(1, MAX_STEPS + 1)
     }
-    animations.update({
-        f"animation.player.cooldown_tick_{ticks}": cooldown_animation(ticks / 20)
-        for ticks in range(1, 201)
-    })
     return {"format_version": "1.8.0", "animations": animations}
 
 

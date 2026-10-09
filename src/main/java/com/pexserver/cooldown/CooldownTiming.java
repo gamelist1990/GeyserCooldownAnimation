@@ -1,6 +1,6 @@
 package com.pexserver.cooldown;
 
-/** Converts a new Geyser cooldown start into remaining wall-clock animation ticks. */
+/** Converts a new Geyser cooldown start into remaining 20 ms animation steps. */
 final class CooldownTiming {
     private long lastHitTime;
 
@@ -18,6 +18,7 @@ final class CooldownTiming {
         double duration = 1000.0 * Math.max(millisecondsPerTick / 50.0, 1.0) / attackSpeed;
         double remaining = duration - (now - hitTime);
         if (remaining <= 0) return 0;
-        return (int) Math.min(200, Math.ceil(remaining / 50.0));
+        return (int) Math.min(AnimationSelector.MAX_STEPS,
+                Math.ceil(remaining / AnimationSelector.STEP_MILLIS));
     }
 }

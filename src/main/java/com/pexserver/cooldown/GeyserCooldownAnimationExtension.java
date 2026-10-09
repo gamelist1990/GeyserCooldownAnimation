@@ -48,7 +48,7 @@ public final class GeyserCooldownAnimationExtension implements Extension {
             logger().warning("Cooldown animation skipped: resource pack is not ready.");
             return;
         }
-        if (uuid == null || ticks < 1 || ticks > 200) {
+        if (uuid == null || ticks < 1 || ticks > AnimationSelector.MAX_STEPS) {
             logger().warning("Cooldown animation skipped: invalid player UUID or ticks.");
             return;
         }
@@ -57,7 +57,7 @@ public final class GeyserCooldownAnimationExtension implements Extension {
             logger().warning("Cooldown animation skipped: no active Geyser connection for " + uuid + ".");
             return;
         }
-        if (!replayGate.accept(uuid, ticks, sequence, System.nanoTime())) return;
+        if (!replayGate.accept(uuid, sequence)) return;
         String animation = AnimationSelector.select(ticks);
         sender.send(connection, animation, logger()::info);
     }

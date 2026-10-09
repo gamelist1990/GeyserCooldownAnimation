@@ -11,7 +11,7 @@ class AnimationPacketFactoryTest {
     @Test void supportedCodecsRoundTripEveryTimingSignal() {
         for (BedrockCodec codec : new BedrockCodec[] {Bedrock_v729.CODEC, Bedrock_v748.CODEC}) {
             var helper = codec.createHelper();
-            for (int ticks = 1; ticks <= 200; ticks++) {
+            for (int ticks = 1; ticks <= 500; ticks++) {
                 String animation = AnimationSelector.select(ticks);
                 long id = 0x1_0000_0000L + ticks;
                 var packet = AnimationPacketFactory.create(codec, helper, animation, id);
