@@ -68,3 +68,8 @@ Geyserの実効攻撃速度とtick速度から残り時間を算出し、20ms刻
 ## パケット送信
 
 1.2.1ではGeyserSessionを型付きで呼び出し、接続のCloudburst codecを使ってアニメーションパケットを生成します。リフレクションは使用しません。クライアントの初期化・スポーンが完了した接続へ送信します。
+
+
+## GeyserJavaGlowing との併用
+
+元の両パックは player 定義が競合するため、[Glowing 互換版の導入手順](docs/glowing-compatibility.md)を参照してください。互換版の2つのJARとmcpack、生成スクリプト、検証結果を GeyserJavaGlowing リポジトリに保存しています。
