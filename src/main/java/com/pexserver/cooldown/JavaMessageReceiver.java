@@ -9,15 +9,20 @@ final class JavaMessageReceiver {
     static final String CHANNEL = "geyser_cooldown:attack";
     private final Map<GeyserConnection, Runnable> removers = new HashMap<>();
 
-    synchronized void attach(GeyserConnection connection, java.util.function.BiConsumer<Integer, Long> receive) throws Exception {
-        if (removers.containsKey(connection)) return;
+    synchronized void attach(GeyserConnection connection, java.util.function.BiConsumer<Integer, Long> receive)
+            throws Exception {
+        if (removers.containsKey(connection))
+            return;
         ClassLoader loader = connection.getClass().getClassLoader();
         Object downstream = connection.getClass().getMethod("getDownstream").invoke(connection);
         Object session = downstream.getClass().getMethod("getSession").invoke(downstream);
         Class<?> sessionType = Class.forName("org.geysermc.mcprotocollib.network.Session", true, loader);
-        Class<?> listenerType = Class.forName("org.geysermc.mcprotocollib.network.event.session.SessionListener", true, loader);
-        Class<?> payloadType = Class.forName("org.geysermc.mcprotocollib.protocol.packet.common.clientbound.ClientboundCustomPayloadPacket", true, loader);
-        Object listener = Proxy.newProxyInstance(loader, new Class<?>[]{listenerType}, (proxy, method, args) -> {
+        Class<?> listenerType = Class.forName("org.geysermc.mcprotocollib.network.event.session.SessionListener", true,
+                loader);
+        Class<?> payloadType = Class.forName(
+                "org.geysermc.mcprotocollib.protocol.packet.common.clientbound.ClientboundCustomPayloadPacket", true,
+                loader);
+        Object listener = Proxy.newProxyInstance(loader, new Class<?>[] { listenerType }, (proxy, method, args) -> {
             if (method.getDeclaringClass() == Object.class) {
                 return switch (method.getName()) {
                     case "hashCode" -> System.identityHashCode(proxy);
@@ -34,7 +39,8 @@ final class JavaMessageReceiver {
                         buffer.get();
                         int ticks = buffer.getInt();
                         long sequence = buffer.getLong();
-                        if (ticks >= 1 && ticks <= 200) receive.accept(ticks, sequence);
+                        if (ticks >= 1 && ticks <= 200)
+                            receive.accept(ticks, sequence);
                     }
                 }
             }
@@ -42,23 +48,33 @@ final class JavaMessageReceiver {
         });
         sessionType.getMethod("addListener", listenerType).invoke(session, listener);
         removers.put(connection, () -> {
-            try { sessionType.getMethod("removeListener", listenerType).invoke(session, listener); }
-            catch (ReflectiveOperationException ignored) {}
+            try {
+                sessionType.getMethod("removeListener", listenerType).invoke(session, listener);
+            } catch (ReflectiveOperationException ignored) {
+            }
         });
         try {
             Class<?> keyType = Class.forName("net.kyori.adventure.key.Key", true, loader);
             Object key = keyType.getMethod("key", String.class).invoke(null, "minecraft:register");
-            Class<?> registerType = Class.forName("org.geysermc.mcprotocollib.protocol.packet.common.serverbound.ServerboundCustomPayloadPacket", true, loader);
+            Class<?> registerType = Class.forName(
+                    "org.geysermc.mcprotocollib.protocol.packet.common.serverbound.ServerboundCustomPayloadPacket",
+                    true, loader);
             Object register = registerType.getConstructor(keyType, byte[].class)
-                .newInstance(key, CHANNEL.getBytes(StandardCharsets.UTF_8));
+                    .newInstance(key, CHANNEL.getBytes(StandardCharsets.UTF_8));
             Class<?> packetType = Class.forName("org.geysermc.mcprotocollib.network.packet.Packet", true, loader);
             connection.getClass().getMethod("sendDownstreamPacket", packetType).invoke(connection, register);
-        } catch (Exception e) { detach(connection); throw e; }
+        } catch (Exception e) {
+            detach(connection);
+            throw e;
+        }
     }
+
     synchronized void detach(GeyserConnection connection) {
         Runnable remove = removers.remove(connection);
-        if (remove != null) remove.run();
+        if (remove != null)
+            remove.run();
     }
+
     synchronized void close() {
         removers.values().forEach(Runnable::run);
         removers.clear();

@@ -1,43 +1,45 @@
 package com.pexserver.cooldown;
+
+import org.cloudburstmc.protocol.bedrock.packet.AnimateEntityPacket;
 import org.geysermc.geyser.api.connection.GeyserConnection;
-import java.lang.reflect.Method;
-import java.util.Collection;
-/** All unstable Geyser/Cloudburst access is confined to this adapter. */
+import org.geysermc.geyser.session.GeyserSession;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/** Sends cooldown animations using the compile-time checked Geyser Core API. */
 public final class BedrockPacketSender {
-    private volatile boolean unsupported;
+    private final AtomicBoolean unsupported = new AtomicBoolean();
+
     public boolean send(GeyserConnection connection, String animation, Runnable failure) {
-        if (unsupported) return false;
+        if (unsupported.get()) return false;
+        if (!(connection instanceof GeyserSession session)) {
+            fail(failure);
+            return false;
+        }
         try {
-            Method schedule = connection.getClass().getMethod("executeInEventLoop", Runnable.class);
-            schedule.invoke(connection, (Runnable) () -> {
+            session.executeInEventLoop(() -> {
+                if (unsupported.get() || session.isClosed()) return;
                 try {
-                    if ((boolean) connection.getClass().getMethod("isClosed").invoke(connection)) return;
-                    Object entity = connection.getClass().getMethod("getPlayerEntity").invoke(connection);
-                    Method id;
-                    try { id = entity.getClass().getMethod("geyserId"); }
-                    catch (NoSuchMethodException e) { id = entity.getClass().getMethod("getGeyserId"); }
-                    long runtime = ((Number) id.invoke(entity)).longValue();
-                    ClassLoader loader = connection.getClass().getClassLoader();
-                    Class<?> type = Class.forName("org.cloudburstmc.protocol.bedrock.packet.AnimateEntityPacket", true, loader);
-                    Object packet = type.getConstructor().newInstance();
-                    type.getMethod("setAnimation", String.class).invoke(packet, animation);
-                    type.getMethod("setNextState", String.class).invoke(packet, "default");
-                    type.getMethod("setStopExpression", String.class).invoke(packet, "query.any_animation_finished");
-                    type.getMethod("setController", String.class).invoke(packet, "__geyser_cooldown");
-                    type.getMethod("setBlendOutTime", float.class).invoke(packet, 0.0f);
-                    @SuppressWarnings("unchecked")
-                    Collection<Long> ids = (Collection<Long>) type.getMethod("getRuntimeEntityIds").invoke(packet);
-                    ids.add(runtime);
-                    Class<?> base = Class.forName("org.cloudburstmc.protocol.bedrock.packet.BedrockPacket", true, loader);
-                    connection.getClass().getMethod("sendUpstreamPacket", base).invoke(connection, packet);
-                } catch (ReflectiveOperationException | LinkageError | RuntimeException e) {
-                    if (!unsupported) { unsupported = true; failure.run(); }
+                    AnimateEntityPacket packet = new AnimateEntityPacket();
+                    packet.setAnimation(animation);
+                    packet.setNextState("default");
+                    packet.setStopExpression("query.any_animation_finished");
+                    packet.setController("__geyser_cooldown");
+                    packet.setBlendOutTime(0.0f);
+                    packet.getRuntimeEntityIds().add(session.getPlayerEntity().geyserId());
+                    session.sendUpstreamPacket(packet);
+                } catch (LinkageError | RuntimeException e) {
+                    fail(failure);
                 }
             });
             return true;
-        } catch (ReflectiveOperationException | LinkageError | RuntimeException e) {
-            if (!unsupported) { unsupported = true; failure.run(); }
+        } catch (LinkageError | RuntimeException e) {
+            fail(failure);
             return false;
         }
+    }
+
+    private void fail(Runnable failure) {
+        if (unsupported.compareAndSet(false, true)) failure.run();
     }
 }
