@@ -7,15 +7,20 @@
         "default": "entity_alphatest",
         "cape": "entity_alphatest",
         "animated": "player_animated",
-        "spectator": "player_spectator"
+        "spectator": "player_spectator",
+        "gca_glow_base": "gca_glow_base",
+        "gca_glow_outline": "gca_glow_outline"
       },
       "textures": {
         "default": "textures/entity/steve",
-        "cape": "textures/entity/cape_invisible"
+        "cape": "textures/entity/cape_invisible",
+        "gca_glow_solid": "textures/entity/gca_glow_solid"
       },
       "geometry": {
         "default": "geometry.humanoid.custom",
-        "cape": "geometry.cape"
+        "cape": "geometry.cape",
+        "gca_glow_wide": "geometry.gca_glow_wide",
+        "gca_glow_slim": "geometry.gca_glow_slim"
       },
       "scripts": {
         "scale": "0.9375",
@@ -216,10 +221,13 @@
           "controller.render.player.first_person": "variable.is_first_person && !query.is_spectator"
         },
         {
-          "controller.render.player.third_person": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
+          "controller.render.gca_glow.body": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
         },
         {
           "controller.render.player.map": "variable.map_face_icon"
+        },
+        {
+          "controller.render.gca_glow.outline": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator && q.property('glow:color') > 0"
         }
       ],
       "enable_attachables": true

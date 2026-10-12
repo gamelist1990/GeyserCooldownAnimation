@@ -1,0 +1,95 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.gca_glow.body": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "q.property('glow:color') > 0 ? Material.gca_glow_base : Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "helmet": "variable.helmet_layer_visible"
+        },
+        {
+          "leftLegging": "variable.leg_layer_visible"
+        },
+        {
+          "rightLegging": "variable.leg_layer_visible"
+        },
+        {
+          "leftBoot": "variable.boot_layer_visible"
+        },
+        {
+          "rightBoot": "variable.boot_layer_visible"
+        },
+        {
+          "leftSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+        },
+        {
+          "rightSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+        },
+        {
+          "bodyArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "leftArmArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "rightArmArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "belt": "variable.chest_layer_visible && variable.leg_layer_visible"
+        },
+        {
+          "hat": "math.mod(math.floor(q.mark_variant / 64), 2) != 1"
+        },
+        {
+          "leftSleeve": "math.mod(math.floor(q.mark_variant / 4), 2) != 1"
+        },
+        {
+          "rightSleeve": "math.mod(math.floor(q.mark_variant / 8), 2) != 1"
+        },
+        {
+          "jacket": "math.mod(math.floor(q.mark_variant / 2), 2) != 1"
+        },
+        {
+          "leftPants": "math.mod(math.floor(q.mark_variant / 16), 2) != 1"
+        },
+        {
+          "rightPants": "math.mod(math.floor(q.mark_variant / 32), 2) != 1"
+        }
+      ]
+    },
+    "controller.render.gca_glow.outline": {
+      "geometry": "query.get_default_bone_pivot('rightarm', 1) == 21.5 || variable.short_arm_offset_left == 0.5 ? Geometry.gca_glow_slim : Geometry.gca_glow_wide",
+      "materials": [
+        {
+          "*": "Material.gca_glow_outline"
+        }
+      ],
+      "textures": [
+        "Texture.gca_glow_solid"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        }
+      ],
+      "ignore_lighting": true,
+      "overlay_color": {
+        "r": "q.property('glow:r')",
+        "g": "q.property('glow:g')",
+        "b": "q.property('glow:b')",
+        "a": "q.property('glow:a')"
+      }
+    }
+  }
+}

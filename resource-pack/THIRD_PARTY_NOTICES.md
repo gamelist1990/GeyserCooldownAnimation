@@ -13,3 +13,6 @@
 [Mojang bedrock-samples](https://github.com/Mojang/bedrock-samples)のresource_packに由来します。
 識別子をgeyser_cooldownの名前へ変更し、槍の各材質のattachableを追加しています。
 これらの素材にはMojangの条件が適用されます。同梱の [Mojang LICENSE](licenses/Mojang-bedrock-samples-LICENSE.md) を参照してください。
+
+三人称の発光に使用するstencil materialは、Glowing Player Outline（BigGamers4u）から継承しています。
+プレイヤー本体の簡易輪郭geometryと白色テクスチャは本プロジェクトで生成しています。

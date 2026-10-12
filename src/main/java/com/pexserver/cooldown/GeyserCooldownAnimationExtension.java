@@ -11,6 +11,13 @@ public final class GeyserCooldownAnimationExtension implements Extension {
     private volatile boolean packReady;
     private final BedrockPacketSender sender = new BedrockPacketSender();
     private final AnimationReplayGate replayGate = new AnimationReplayGate();
+    @Subscribe public void glowDefaults(GeyserDefineEntityPropertiesEvent event) {
+        if (extensionManager().extension("geyserjavaglowing") != null) return;
+        var player = org.geysermc.geyser.api.util.Identifier.of("minecraft:player");
+        event.registerIntegerProperty(player, org.geysermc.geyser.api.util.Identifier.of("glow:color"), 0, 2, 0);
+        for (String channel : List.of("r", "g", "b", "a"))
+            event.registerFloatProperty(player, org.geysermc.geyser.api.util.Identifier.of("glow:" + channel), 0.0f, 1.0f, 1.0f);
+    }
     @Subscribe public void packs(GeyserDefineResourcePacksEvent event) {
         try {
             Files.createDirectories(dataFolder());
