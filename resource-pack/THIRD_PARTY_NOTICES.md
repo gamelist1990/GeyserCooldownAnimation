@@ -16,5 +16,3 @@
 
 三人称の発光に使用するstencil materialは、Glowing Player Outline（BigGamers4u）から継承しています。
 プレイヤー本体の簡易輪郭geometryと白色テクスチャは本プロジェクトで生成しています。
-
-一人称のアイテム基準ポーズはMojang bedrock-samplesのplayer_firstperson.animation.json（animation.player.first_person.empty_hand）を使用し、名前だけ変更しています。
