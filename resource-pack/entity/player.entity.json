@@ -170,6 +170,7 @@
         "should_update_effects_offscreen": "1.0"
       },
       "animations": {
+        "first_person_item_fix": "animation.player.first_person.item_fix",
         "elytra_default_controller": "controller.animation.elytra_outline.default",
         "elytra_default": "animation.elytra_outline.default",
         "elytra_gliding": "animation.elytra_outline.gliding",

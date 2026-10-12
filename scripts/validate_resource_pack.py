@@ -104,6 +104,9 @@ def validate_files(files, version=None):
         if key.startswith("animation.player.") and not ("timeline" in animation and not animation.get("bones")) and set(animation.get("bones", {})) != {"rightArm"}:
             raise ValueError(f"{key}: unexpected player bone")
     desc = docs["entity/player.entity.json"]["minecraft:client_entity"]["description"]
+    item_fix = desc.get("animations", {}).get("first_person_item_fix")
+    if item_fix not in registries["animations"]:
+        raise ValueError(f"Missing player item-position animation: {item_fix}")
     player_controllers = [registries["animation_controllers"][name] for name in (
         "controller.animation.player.first_person_attack", "controller.animation.geyser_cooldown.recovery")]
     for state in (state for controller in player_controllers for state in controller["states"].values()):
