@@ -96,10 +96,10 @@ val generatePackManifest = tasks.register("generatePackManifest") {
         }
     }
 }
-val resourcePack = tasks.register<Zip>("resourcePack") {
+val rawResourcePack = tasks.register<Zip>("rawResourcePack") {
     dependsOn(validateResourcePack)
     archiveFileName.set("GeyserCooldownAnimation-pack-$releaseVersion.mcpack")
-    destinationDirectory.set(layout.buildDirectory.dir("resource-pack"))
+    destinationDirectory.set(layout.buildDirectory.dir("raw-resource-pack"))
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true
     from("resource-pack") { exclude("manifest.json") }
@@ -107,12 +107,22 @@ val resourcePack = tasks.register<Zip>("resourcePack") {
     from(layout.buildDirectory.file("generated/resource-pack/manifest.json"))
     from("LICENSE")
 }
+val compactPack = layout.buildDirectory.file("resource-pack/GeyserCooldownAnimation-pack-$releaseVersion.mcpack")
+val resourcePack = tasks.register<Exec>("resourcePack") {
+    dependsOn(rawResourcePack)
+    inputs.file(rawResourcePack.flatMap { it.archiveFile })
+    inputs.file("scripts/compact_resource_pack.py")
+    outputs.file(compactPack)
+    commandLine(packPython.get(), "scripts/compact_resource_pack.py",
+        rawResourcePack.get().archiveFile.get().asFile.absolutePath,
+        compactPack.get().asFile.absolutePath)
+}
 
 tasks.test { useJUnitPlatform() }
 
 tasks.processResources {
     dependsOn(resourcePack)
-    from(resourcePack.flatMap { it.archiveFile }) { rename { "geyser-cooldown-animation.mcpack" } }
+    from(compactPack) { rename { "geyser-cooldown-animation.mcpack" } }
     inputs.property("version", releaseVersion)
     filesMatching("extension.yml") {
         expand("id" to extensionId, "name" to extensionName, "api" to geyserApiVersion,

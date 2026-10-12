@@ -72,4 +72,13 @@ Geyserの実効攻撃速度とtick速度から残り時間を算出し、20ms刻
 
 ## GeyserJavaGlowing との併用
 
-GCA 1.3.14とGlowing 0.2.12は、ユーザーが剣の位置・クールダウン・発光描画を確認した安定版です。元の580fa30のGlowing素材を保持し、player定義の古いmin_engine_version指定を除去しています。GCAが一つのパックを配信し、Glowing拡張は発光状態と色を通知します。
+GCA 1.3.15とGlowing 0.2.13は、確認済みの安定版1.3.14／0.2.12と同じ描画・剣の位置・クールダウン処理を保持した軽量版です。GCAが一つのパックを配信し、Glowing拡張は状態と色を通知します。ビルド時にJSONとアイコンを可逆圧縮し、内容・数値・画素の一致を検証します。
+
+## パック圧縮を含むビルド
+
+Java 21とPython 3を使用します。画像の可逆圧縮にはPillowが必要です。
+
+```bash
+python3 -m pip install -r scripts/requirements-resource-pack.txt
+./gradlew --no-daemon build --console=plain
+```

@@ -4,7 +4,7 @@ import argparse
 import json
 import zipfile
 from pathlib import Path
-from generate_pack_animations import definitions, rendered
+from generate_pack_animations import definitions
 
 ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "resource-pack"
@@ -33,7 +33,7 @@ def validate_files(files, version=None):
         raise ValueError(f"Missing pack files: {sorted(missing)}")
     docs = {name: read_json(data) for name, data in files.items() if name.endswith(".json")}
     generated = docs["animations/cooldown.animation.json"]
-    if generated != definitions() or files["animations/cooldown.animation.json"].decode().replace("\r\n", "\n") != rendered():
+    if generated != definitions():
         raise ValueError("Generated cooldown animations are stale")
     manifest = docs["manifest.json"]
     if version:
