@@ -1,0 +1,217 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.player.first_person_attack": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            {
+              "first_person_attack_rotation": "!(variable.gca_sword || variable.gca_tool || variable.gca_axe || variable.gca_mace || variable.gca_spear)"
+            },
+            {
+              "attack_rotation_custom_sword": "variable.gca_sword || variable.gca_tool"
+            },
+            {
+              "attack_rotation_custom_axe": "variable.gca_axe"
+            },
+            {
+              "attack_rotation_custom_mace": "variable.gca_mace"
+            }
+          ],
+          "transitions": [
+            {
+              "vr_attack": "variable.is_using_vr"
+            }
+          ]
+        },
+        "vr_attack": {
+          "animations": [
+            "first_person_vr_attack_rotation"
+          ],
+          "transitions": [
+            {
+              "default": "!variable.is_using_vr"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.geyser_cooldown.recovery": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && (variable.gca_hand || variable.gca_sword || variable.gca_axe || variable.gca_mace || variable.gca_tool || variable.gca_trident)"
+            }
+          ],
+          "on_entry": [
+            "variable.gca_requested = 0;"
+          ]
+        },
+        "waiting": {
+          "transitions": [
+            {
+              "idle": "!(variable.gca_hand || variable.gca_sword || variable.gca_axe || variable.gca_mace || variable.gca_tool || variable.gca_trident) || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "hand": "variable.gca_hand"
+            },
+            {
+              "sword": "variable.attack_time <= 0 && variable.gca_sword"
+            },
+            {
+              "axe": "variable.attack_time <= 0 && variable.gca_axe"
+            },
+            {
+              "mace": "variable.attack_time <= 0 && variable.gca_mace"
+            },
+            {
+              "tool": "variable.attack_time <= 0 && variable.gca_tool"
+            },
+            {
+              "trident": "variable.gca_trident"
+            }
+          ]
+        },
+        "sword": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_sword": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_sword || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "axe": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_axe": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_axe || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "mace": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_mace": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_mace || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "hand": {
+          "on_entry": [
+            "variable.gca_requested = 0;"
+          ],
+          "animations": [
+            {
+              "gca_recovery_hand": "variable.is_first_person && !variable.is_using_vr && !query.is_using_item"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_hand || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            }
+          ]
+        },
+        "tool": {
+          "on_entry": [
+            "variable.gca_requested = 0;",
+            "variable.gca_active_duration = math.max(0.02, variable.gca_duration - (query.life_time - variable.gca_requested_at));"
+          ],
+          "animations": [
+            {
+              "gca_recovery_sword": "variable.is_first_person && !variable.is_using_vr"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_tool || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            },
+            {
+              "waiting": "variable.attack_time > 0"
+            },
+            {
+              "idle": "query.all_animations_finished"
+            }
+          ]
+        },
+        "trident": {
+          "on_entry": [
+            "variable.gca_requested = 0;"
+          ],
+          "animations": [
+            {
+              "gca_recovery_trident": "variable.is_first_person && !variable.is_using_vr && !query.is_using_item"
+            }
+          ],
+          "transitions": [
+            {
+              "waiting": "variable.gca_requested && query.life_time - variable.gca_requested_at < variable.gca_duration"
+            },
+            {
+              "idle": "!variable.gca_trident || query.life_time - variable.gca_requested_at >= variable.gca_duration"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

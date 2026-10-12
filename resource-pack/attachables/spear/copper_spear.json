@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "minecraft:copper_spear",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/entity/spear/copper_spear",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.geyser_cooldown.spear"
+      },
+      "animations": {
+        "held": "controller.animation.geyser_cooldown.spear.held",
+        "held_first_person": "animation.geyser_cooldown.spear.held_first_person",
+        "held_third_person": "animation.geyser_cooldown.spear.held_third_person",
+        "hit_controller": "controller.animation.geyser_cooldown.spear.hit",
+        "hit": "animation.geyser_cooldown.spear.hit"
+      },
+      "scripts": {
+        "animate": [
+          "held",
+          "hit_controller"
+        ]
+      },
+      "sound_effects": {
+        "hit": "item.spear.hit"
+      },
+      "render_controllers": [
+        "controller.render.geyser_cooldown.item_default"
+      ]
+    }
+  }
+}

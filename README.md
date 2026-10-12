@@ -2,20 +2,21 @@
 
 **Javaの攻撃クールダウンを、Bedrockプレイヤーの手元の動きで表示するGeyser拡張。**
 
-Paperの攻撃速度に応じて、攻撃したBedrockプレイヤー本人へアニメーションを送信します。
+Geyser標準クールダウンの開始時刻と攻撃速度を使い、Bedrockプレイヤー本人へアニメーションを送信します。
+Paper側のbridgeや追加プラグインは不要です。
 専用の **Geyser Cooldown Animation Resource Pack** を同梱して、配布します。
 
 [導入ガイド](INSTALL.md) · [MIT License](LICENSE)
 
-> 開発段階です。Geyser上のロード・パック登録・受信処理は確認済みですが、Paperの実際の攻撃イベント・Velocity経由の実接続・Bedrock実機の表示は未検証です。
+> 開発段階です。クールダウン時間の計算・ビルド・パック検証を実施しています。新しい監視処理の実接続・Velocity経由のサーバー移動・Bedrock実機の表示は未検証です。
 
 > 本拡張機能はCodexを使用して作成されています。
 ## 機能
 
-- 素手・剣・ツルハシ・斧・メイスの7つの表示プロファイル。
+- 素手・剣・斧・トライデント・メイス・ツルハシ・シャベルのクールダウン表示。
 - 攻撃時に手を下げ、クールダウンに合わせて戻す一人称アニメーション。
 - 専用パックの自動展開とGeyser経由の配布。
-- 同じtickの重複抑制と、プレイヤーの既存接続を使う通信。
+- Geyserのクールダウン開始時刻を監視し、同じ開始時刻の重複通知を抑制。
 - token・endpoint・追加ポート・設定ファイル不要。
 - 内部APIの非互換時に表示機能を停止。
 
@@ -24,94 +25,54 @@ Paperの攻撃速度に応じて、攻撃したBedrockプレイヤー本人へ�
 | コンポーネント | 配置先 | 実行環境 |
 | --- | --- | --- |
 | GeyserCooldownAnimation | Geyserの `extensions/` | Java 21以上、Geyser API 2.11.0以上 |
-| GeyserCooldownPaperBridge | Paperの `plugins/` | Java 25以上、Paper 26.3 |
 | 専用リソースパック | 拡張JARに同梱 | Bedrockでサーバーパックを適用 |
 
-Geyser-Spigot、Geyser-Velocity、Standaloneから、既存のMinecraft接続でPaperと連携します。
-別ホストでも追加のHTTP通信設定は不要です。Velocity専用の追加JARも不要です。
-Geyser 2.11.3-b1247の実パケットクラスで受信処理を検証済み。
-Velocity経由の実接続とBedrock実機での表示は未検証です。
+Geyser-Spigot、Geyser-Velocity、Standaloneで、拡張JARだけを配置します。
+JavaサーバーからGeyserへ届く攻撃速度属性を利用します。
+Geyser内部APIへ依存するため、Geyser更新時には互換性の確認が必要です。
 
 ## 導入
 
-1. GitHub **Releases** から同じバージョンの2つのJAR、または導入用ZIPを取得。
-2. Geyserのextensionsへ拡張、Paperのpluginsへ連携JARを配置。
+1. GitHub **Releases** から拡張JAR、または導入用ZIPを取得。
+2. Geyserのextensionsへ拡張JARを配置。
 3. 起動し、Bedrockから接続してサーバーパックを適用。
 
-設定ファイルの編集は不要です。Velocity構成では各Paperサーバーへ連携JARを配置します。
+通常は設定変更不要です。Geyserの標準クールダウン表示を有効にしてください。
+`disabled`では開始時刻が更新されず、本拡張も動作しません。
+標準パックの有無には依存しません。標準UIの表示も維持します。
+攻撃・空振りに加え、Geyserがクールダウンを更新するアイテム切替にも連動します。
 
 詳しいフォルダ例と設定は [INSTALL.md](INSTALL.md) を参照してください。
 
 ## 専用パック
 
-自作のmanifest・独自名前空間・数式によるアニメーションで構成した **MIT** のパックです。
-外部パックのテクスチャ・モデル・プレイヤー定義・コントローラは含めていません。
+剣・斧・メイスの一人称スイングと持ち方はBlurry's Crossplay Animations 2.0を基準にしています。
+クールダウンの腕下げはスイング終了後に再生し、剣10、斧・メイス12の下げ幅を使用します。
+剣・斧は参照元のCatmull-Rom補間、メイスは線形補間です。
 
-動きは、指定されたCooldown Animationの「0.125秒で下げ、その後戻す」という表示に合わせています。
-一人称で右腕を20モデル単位下げ、プロファイルに応じて元の位置に戻します。
+Geyserの実効攻撃速度とtick速度から残り時間を算出し、20ms刻み・1～500ステップで通知します。
+開始時刻の監視はGeyserのイベントループで10ms間隔です。検知までの経過時間を差し引きます。
+通知は時間を更新するだけで、描画はBedrock側のcontrollerが担当します。
+連打時は回復を中断してスイングへ戻り、終了後に残り時間で復帰します。
+ツルハシ・シャベルは剣と同じスイング・回復姿勢を使用し、時間は各アイテムのサーバー攻撃速度に従います。
+素手・トライデントは標準スイングに腕下げを重ね、原則0.125秒で下げて通知期限までに戻します。
+槍は取り出す標準アニメーションを残し、通常攻撃に追加のクールダウン腕下げを適用しません。
+ツルハシ・シャベル・槍の全材質とトライデントに専用attachableを用意し、メイスの既存attachableも使用します。
+同じ開始時刻だけを重複扱いにし、45ms以内の新しい通知も送信します。
+投擲中は追加の回復動作を抑え、通知の期限を過ぎた回復は再生しません。hoeは対象外です。
 
-| プロファイル | 元の位置に戻るまで |
-| --- | --- |
-| 素手 | 0.25秒 |
-| 剣 | 0.65秒 |
-| ツルハシ | 0.90秒 |
-| ダイヤ・金・ネザライト斧相当 | 1.05秒 |
-| 鉄斧相当 | 1.15秒 |
-| 木・石斧相当 | 1.30秒 |
-| メイス | 1.65秒 |
+ビルドごとにパックのheader/module UUIDを更新します。更新後はサーバーを再起動し、Bedrockクライアントで再接続してください。
+参考素材に本プロジェクトのMITライセンスは適用されません。出典は [素材通知](resource-pack/THIRD_PARTY_NOTICES.md) を参照してください。
+仕様は [パックREADME](resource-pack/README.md)、v1.2.0の変更は [リリース説明](docs/releases/v1.2.0.md) に記載しています。
 
-実効攻撃速度から最も近い標準プロファイルを選びます。
-カスタム攻撃速度を連続的に反映する仕組みではありません。
-パックのソースと動作仕様は [resource-pack/README.md](resource-pack/README.md) を参照してください。
+## パケット送信
 
-## 表示の範囲
+1.2.1ではGeyserSessionを型付きで呼び出し、接続のCloudburst codecを使ってアニメーションパケットを生成します。リフレクションは使用しません。クライアントの初期化・スポーンが完了した接続へ送信します。
 
-| 対象 | 動作 |
-| --- | --- |
-| 攻撃したBedrockプレイヤー本人 | 一人称で手元を下げる |
-| Javaプレイヤー | アニメーションを送信しない |
-| 第三者のBedrockクライアント | この版では送信しない |
-| 三人称視点 | 専用パックの右腕オフセットは0 |
-| 採掘の左クリック | 再生要求を送信しない |
 
-## ビルド
+## GeyserJavaGlowing との併用
 
-JDK 21と25、Python 3を用意します。拡張はJava 21、Paper連携はJava 25をターゲットにします。
-
-```bash
-./gradlew clean build
-python3 scripts/package_release.py --version 1.1.0
-```
-
-Windowsでは `gradlew.bat clean build` と `py scripts/package_release.py --version 1.1.0` を使います。
-パックのJSONソースを編集した場合も、Gradleが同梱版と単独版を作成します。
-
-| 配布資産 | 内容 |
-| --- | --- |
-| `GeyserCooldownAnimation-<version>.jar` | 専用パック入りGeyser拡張 |
-| `GeyserCooldownPaperBridge-<version>.jar` | Paper連携 |
-| `GeyserCooldownAnimation-pack-<version>.mcpack` | 専用パック単体 |
-| `GeyserCooldownAnimation-<version>.zip` | 両JAR、パック、導入手順、ライセンス |
-| `SHA256SUMS.txt` | 配布資産のチェックサム |
-
-出力先は `dist/` です。通常の導入ではパック単体の手動配置は不要です。
-
-## GitHub Actions
-
-- ブランチpush・pull request：ビルド、テスト、配布資産の検証、Actions成果物の保存。
-- `v1.1.0` のようなタグpush：タグのバージョンでビルドしてGitHub Releaseを自動作成。
-- `v1.1.0-rc.1`：プレリリースとして公開。
-
-```bash
-git tag v1.1.0
-git push origin v1.1.0
-```
-
-両JARのファイル名とメタデータをタグに合わせます。
-Bedrockのmanifestにはタグの数値部分を3要素のバージョンとして反映します。
-
-## ライセンス
-
-コードと専用パックは **MIT**。Copyright © 2026 gamelist1990 & Koukunn_。
-元のExtension TemplateのMIT著作権表示も保持しています。
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) で依存元・参考元を確認できます。
+1.3.1 以降は GeyserJavaGlowing 0.2.1 以降と同じ統合済み `entity/player.entity.json` を同梱します。
+Cooldown の `gca_*` / recovery controller と Glowing の輪郭描画定義を1つの player 定義に保持するため、2つのパックの優先順に依存しません。
+通常の2つの拡張 JAR を Geyser の `extensions/` に置くだけで併用でき、専用の互換 JAR / mcpack は不要です。
+詳細は [Glowing 互換性](docs/glowing-compatibility.md) を参照してください。

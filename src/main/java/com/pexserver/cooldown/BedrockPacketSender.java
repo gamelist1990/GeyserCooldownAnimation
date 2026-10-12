@@ -1,45 +1,49 @@
 package com.pexserver.cooldown;
 
-import org.cloudburstmc.protocol.bedrock.packet.AnimateEntityPacket;
 import org.geysermc.geyser.api.connection.GeyserConnection;
 import org.geysermc.geyser.session.GeyserSession;
-
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
-/** Sends cooldown animations using the compile-time checked Geyser Core API. */
+/** Compile-time checked Geyser session integration; no reflective access. */
 public final class BedrockPacketSender {
     private final AtomicBoolean unsupported = new AtomicBoolean();
+    private final AtomicBoolean loggedSend = new AtomicBoolean();
 
-    public boolean send(GeyserConnection connection, String animation, Runnable failure) {
+    public boolean send(GeyserConnection connection, String animation, Consumer<String> diagnostic) {
         if (unsupported.get()) return false;
         if (!(connection instanceof GeyserSession session)) {
-            fail(failure);
+            fail("Unsupported Geyser connection type: " + connection.getClass().getName(), diagnostic);
             return false;
         }
         try {
             session.executeInEventLoop(() -> {
-                if (unsupported.get() || session.isClosed()) return;
+                if (unsupported.get() || session.isClosed() || !session.isSpawned()
+                        || !session.getUpstream().isInitialized()) return;
                 try {
-                    AnimateEntityPacket packet = new AnimateEntityPacket();
-                    packet.setAnimation(animation);
-                    packet.setNextState("default");
-                    packet.setStopExpression("query.any_animation_finished");
-                    packet.setController("__geyser_cooldown");
-                    packet.setBlendOutTime(0.0f);
-                    packet.getRuntimeEntityIds().add(session.getPlayerEntity().geyserId());
+                    long runtime = session.getPlayerEntity().geyserId();
+                    var upstream = session.getUpstream();
+                    var packet = AnimationPacketFactory.create(upstream.getSession().getCodec(),
+                            upstream.getCodecHelper(), animation, runtime);
                     session.sendUpstreamPacket(packet);
+                    if (loggedSend.compareAndSet(false, true)) {
+                        diagnostic.accept("Sent first cooldown animation packet: " + animation
+                                + ", runtimeEntityId=" + runtime + ".");
+                    }
                 } catch (LinkageError | RuntimeException e) {
-                    fail(failure);
+                    fail("Cooldown animation packet send failed: " + e.getClass().getSimpleName()
+                            + ": " + e.getMessage(), diagnostic);
                 }
             });
             return true;
         } catch (LinkageError | RuntimeException e) {
-            fail(failure);
+            fail("Cooldown animation scheduling failed: " + e.getClass().getSimpleName()
+                    + ": " + e.getMessage(), diagnostic);
             return false;
         }
     }
 
-    private void fail(Runnable failure) {
-        if (unsupported.compareAndSet(false, true)) failure.run();
+    private void fail(String message, Consumer<String> diagnostic) {
+        if (unsupported.compareAndSet(false, true)) diagnostic.accept(message);
     }
 }
