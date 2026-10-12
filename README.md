@@ -72,4 +72,4 @@ Geyserの実効攻撃速度とtick速度から残り時間を算出し、20ms刻
 
 ## GeyserJavaGlowing との併用
 
-GCA 1.3.8とGlowing 0.2.6では、1.3.1の描画品質とGlowingの一人称処理を基準にしています。GCAの一つのパックで描画し、Glowing拡張は状態と色を通知します。併用時はGlowing単独パックを登録しません。簡易輪郭版1.3.7は使用しません。
+GCA 1.3.14とGlowing 0.2.12は、ユーザーが剣の位置・クールダウン・発光描画を確認した安定版です。元の580fa30のGlowing素材を保持し、player定義の古いmin_engine_version指定を除去しています。GCAが一つのパックを配信し、Glowing拡張は発光状態と色を通知します。
