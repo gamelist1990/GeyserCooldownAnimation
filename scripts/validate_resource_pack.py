@@ -18,6 +18,10 @@ def read_json(data):
 
 
 def validate_files(files, version=None):
+    vanilla_geometries = {"geometry.elytra", *("geometry.player.armor." + slot for slot in ("boots", "chestplate", "helmet", "leggings"))}
+    vanilla_animations = {"animation.bow.wield", "animation.bow.wield_first_person_pull", "controller.animation.elytra.default",
+                          *("animation.elytra." + state for state in ("default", "gliding", "sleeping", "sneaking", "swimming")),
+                          *("animation.armor." + slot + ".offset" for slot in ("boots", "chestplate", "helmet", "leggings"))}
     required = {
         "manifest.json", "pack_icon.png", "README.md", "THIRD_PARTY_NOTICES.md",
         "animations/cooldown.animation.json", "animations/weapon_swing.animation.json", "animations/recovery.animation.json", "entity/player.entity.json",
@@ -59,7 +63,7 @@ def validate_files(files, version=None):
                 raise ValueError(f"Duplicate attachable: {key}")
             identifiers.add(key)
             for geo in desc.get("geometry", {}).values():
-                if geo not in geometries and not any(
+                if geo not in vanilla_geometries and geo not in geometries and not any(
                     geo == g["description"]["identifier"]
                     for d in docs.values() for g in d.get("minecraft:geometry", [])
                 ):
@@ -68,7 +72,7 @@ def validate_files(files, version=None):
         if "minecraft:attachable" not in doc:
             continue
         desc = doc["minecraft:attachable"]["description"]
-        bones = set().union(*(geometries[g] for g in desc.get("geometry", {}).values()))
+        bones = set().union(*(geometries.get(g, set()) for g in desc.get("geometry", {}).values()))
         aliases = desc.get("animations", {})
         for animation in aliases.values():
             if animation in registries["animations"]:
@@ -85,7 +89,7 @@ def validate_files(files, version=None):
                     for transition in state.get("transitions", []):
                         if transition.keys() - controller["states"].keys():
                             raise ValueError(f"{name}: missing controller state")
-            elif animation not in {"animation.bow.wield", "animation.bow.wield_first_person_pull"}:
+            elif animation not in vanilla_animations:
                 raise ValueError(f"{name}: missing animation {animation}")
         for controller in desc["render_controllers"]:
             for key in ([controller] if isinstance(controller, str) else controller):
@@ -104,8 +108,9 @@ def validate_files(files, version=None):
         if key.startswith("animation.player.") and not ("timeline" in animation and not animation.get("bones")) and set(animation.get("bones", {})) != {"rightArm"}:
             raise ValueError(f"{key}: unexpected player bone")
     desc = docs["entity/player.entity.json"]["minecraft:client_entity"]["description"]
-    if "first_person_item_fix" in desc.get("animations", {}):
-        raise ValueError("Glowing item-position override must not change first-person rendering")
+    item_fix = desc.get("animations", {}).get("first_person_item_fix")
+    if item_fix is not None and item_fix not in registries["animations"]:
+        raise ValueError("Player first-person item-fix alias must resolve in the served pack")
     player_controllers = [registries["animation_controllers"][name] for name in (
         "controller.animation.player.first_person_attack", "controller.animation.geyser_cooldown.recovery")]
     for state in (state for controller in player_controllers for state in controller["states"].values()):

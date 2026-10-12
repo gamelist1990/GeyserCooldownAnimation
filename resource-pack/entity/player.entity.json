@@ -3,27 +3,49 @@
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:player",
+      "min_engine_version": "1.12.0",
       "materials": {
         "default": "entity_alphatest",
-        "cape": "entity_alphatest",
+        "cape": "outline_base",
         "animated": "player_animated",
         "spectator": "player_spectator",
-        "gca_glow_base": "gca_glow_base",
-        "gca_glow_outline": "gca_glow_outline"
+        "outline_base": "outline_base",
+        "outline": "outline",
+        "outline_no_esp": "outline_no_esp"
       },
       "textures": {
         "default": "textures/entity/steve",
+        "test": "textures/entity/random",
         "cape": "textures/entity/cape_invisible",
-        "gca_glow_solid": "textures/entity/gca_glow_solid"
+        "elytra": "textures/models/armor/elytra",
+        "turtle_1": "textures/models/armor/turtle_1",
+        "netherite_1": "textures/models/armor/netherite_1",
+        "netherite_2": "textures/models/armor/netherite_2",
+        "diamond_1": "textures/models/armor/diamond_1",
+        "diamond_2": "textures/models/armor/diamond_2",
+        "golden_1": "textures/models/armor/gold_1",
+        "golden_2": "textures/models/armor/gold_2",
+        "iron_1": "textures/models/armor/iron_1",
+        "iron_2": "textures/models/armor/iron_2",
+        "copper_1": "textures/models/armor/copper_1",
+        "copper_2": "textures/models/armor/copper_2",
+        "chainmail_1": "textures/models/armor/chain_1",
+        "chainmail_2": "textures/models/armor/chain_2",
+        "leather_1": "textures/models/armor/cloth_1",
+        "leather_2": "textures/models/armor/cloth_2"
       },
       "geometry": {
         "default": "geometry.humanoid.custom",
-        "cape": "geometry.cape",
-        "gca_glow_wide": "geometry.gca_glow_wide",
-        "gca_glow_slim": "geometry.gca_glow_slim"
+        "outline_layer": "geometry.player_outline",
+        "wide_outline_layer": "geometry.wide_player_outline",
+        "cape_outline": "geometry.cape_outline",
+        "elytra_outline": "geometry.elytra_outline",
+        "armor_1_outline": "geometry.armor_1_outline",
+        "armor_2_outline": "geometry.armor_2_outline",
+        "cape": "geometry.cape"
       },
       "scripts": {
-        "scale": "0.9375",
+        "scale": 0.9375,
         "variables": {
           "variable.fp_melee_spear_use_attachable_rotation_z": "public",
           "variable.tp_melee_spear_use_attachable_rotation_z": "public",
@@ -33,11 +55,18 @@
           "variable.item_use_normalized": "public"
         },
         "initialize": [
-          "v.is_holding_right = 0.0;",
-          "v.is_blinking = 0.0;",
-          "v.last_blink_time = 0.0;",
-          "v.hand_bob = 0.0;",
+          "variable.is_holding_right = 0.0;",
+          "variable.is_blinking = 0.0;",
+          "variable.last_blink_time = 0.0;",
+          "variable.hand_bob = 0.0;",
           "v.melee_spear_java_to_bedrock_scale = 40.0;",
+          "variable.rightarm_pivot = 0.0;",
+          "variable.leftarm_pivot = 0.0;",
+          "variable.slim = 0.0;",
+          "variable.wide = 0.0;",
+          "variable.is_in_ui = 0.0;",
+          "variable.property_glow = 0.0;",
+          "variable.is_holding = 0.0;",
           "variable.gca_duration = 0.65;",
           "variable.gca_requested = 0;",
           "variable.gca_requested_at = 0;",
@@ -113,6 +142,13 @@
           "v.tp_melee_spear_attack_arm_rotation_x = t.melee_spear_attack_raise_scale * 90.0 + t.melee_spear_attack_thrust_scale * -120.0 + t.melee_spear_attack_recover_scale * 30.0;",
           "v.tp_melee_spear_attack_item_rotation_x = t.melee_spear_attack_thrust_scale * 60.0 + t.melee_spear_attack_recover_scale * -60.0;",
           "v.tp_melee_spear_attack_attachable_position_z = (t.melee_spear_attack_thrust_scale * -0.15 + t.melee_spear_attack_recover_scale * 0.15) * v.melee_spear_java_to_bedrock_scale;",
+          "variable.rightarm_pivot = query.get_default_bone_pivot('rightarm', 1);",
+          "variable.leftarm_pivot = query.get_default_bone_pivot('leftarm', 1);",
+          "variable.slim = query.get_default_bone_pivot('rightarm', 1) == 21.5 || (variable.short_arm_offset_left == 0.5);",
+          "variable.wide = !variable.slim;",
+          "variable.is_in_ui = !query.is_alive || query.is_sleeping;",
+          "variable.property_glow = q.property('glow:color') == 0;",
+          "variable.is_holding = query.get_equipped_item_name(0, 1) != '';",
           "variable.gca_hand = !query.is_item_equipped('main_hand');",
           "variable.gca_sword = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_sword');",
           "variable.gca_axe = query.equipped_item_any_tag('slot.weapon.mainhand', 'minecraft:is_axe');",
@@ -126,11 +162,21 @@
         ],
         "animate": [
           "root",
+          {
+            "elytra_default_controller": "query.is_item_name_any('slot.armor.chest', 0, 'minecraft:elytra')"
+          },
           "gca_recovery"
         ],
         "should_update_effects_offscreen": "1.0"
       },
       "animations": {
+        "first_person_item_fix": "animation.player.first_person.item_fix",
+        "elytra_default_controller": "controller.animation.elytra_outline.default",
+        "elytra_default": "animation.elytra_outline.default",
+        "elytra_gliding": "animation.elytra_outline.gliding",
+        "elytra_sneaking": "animation.elytra_outline.sneaking",
+        "elytra_sleeping": "animation.elytra_outline.sleeping",
+        "elytra_swimming": "animation.elytra_outline.swimming",
         "root": "controller.animation.player.root",
         "base_controller": "controller.animation.player.base",
         "hudplayer": "controller.animation.player.hudplayer",
@@ -199,8 +245,20 @@
         "tooting_goat_horn": "animation.humanoid.tooting_goat_horn",
         "holding_brush": "animation.humanoid.holding_brush",
         "brushing": "animation.humanoid.brushing",
+        "first_person_sword_cooldown": "animation.cooldown.sword",
+        "first_person_axe_cooldown": "animation.cooldown.axe",
+        "first_person_mace_cooldown": "animation.cooldown.mace",
         "attack_rotation_custom_sword": "animation.player.first_person.attack_rotation_custom_sword",
         "attack_rotation_custom_axe": "animation.player.first_person.attack_rotation_custom_axe",
+        "cooldown_sword": "controller.animation.cooldown_sword",
+        "cooldown_axe": "controller.animation.cooldown_axe",
+        "cooldown_mace": "controller.animation.cooldown_mace",
+        "shield_offhand": "animation.shield.wield_off_hand_first_person_blocking2",
+        "shield_mainhand": "animation.shield.wield_mian_hand_first_person_blocking2",
+        "animation.shield.wield_main_hand_first_person": "animation.shield.wield_main_hand_first_person",
+        "animation.shield.wield_off_hand_first_person": "animation.shield.wield_off_hand_first_person",
+        "animation.shield.wield_main_hand_first_person_block": "animation.shield.wield_main_hand_first_person_block",
+        "animation.shield.wield_off_hand_first_person_block": "animation.shield.wield_off_hand_first_person_block",
         "attack_rotation_custom_mace": "animation.player.first_person.attack_rotation_custom_mace",
         "gca_recovery": "controller.animation.geyser_cooldown.recovery",
         "gca_recovery_sword": "animation.geyser_cooldown.recovery_sword",
@@ -221,13 +279,211 @@
           "controller.render.player.first_person": "variable.is_first_person && !query.is_spectator"
         },
         {
-          "controller.render.gca_glow.body": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
+          "controller.render.player.third_person": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
         },
         {
           "controller.render.player.map": "variable.map_face_icon"
         },
         {
-          "controller.render.gca_glow.outline": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator && q.property('glow:color') > 0"
+          "controller.render.player.cape": "!variable.is_first_person || !variable.map_face_icon && !query.is_spectator"
+        },
+        {
+          "controller.render.outline_layer_black_no_esp": "variable.slim && !variable.is_first_person && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_layer_customization": "variable.slim && !variable.is_first_person && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.wide_outline_layer_black_no_esp": "variable.wide && !variable.is_first_person && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.wide_outline_layer_customization": "variable.wide && !variable.is_first_person && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_cape_layer_black_no_esp": "!query.is_item_name_any('slot.armor.chest', 0, 'minecraft:elytra') && !variable.is_first_person && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_cape_layer_customization": "!query.is_item_name_any('slot.armor.chest', 0, 'minecraft:elytra') && !variable.is_first_person && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_elytra_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:elytra') && !variable.is_first_person && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_elytra_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:elytra') && !variable.is_first_person && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_turtle_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:turtle_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_turtle_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:turtle_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_netherite_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:netherite_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_netherite_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:netherite_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_netherite_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:netherite_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_netherite_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:netherite_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_netherite_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:netherite_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_netherite_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:netherite_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_netherite_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:netherite_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_netherite_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:netherite_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_diamond_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:diamond_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_diamond_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:diamond_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_diamond_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:diamond_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_diamond_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:diamond_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_diamond_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:diamond_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_diamond_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:diamond_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_diamond_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:diamond_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_diamond_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:diamond_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_golden_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:golden_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_golden_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:golden_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_golden_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:golden_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_golden_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:golden_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_golden_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:golden_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_golden_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:golden_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_golden_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:golden_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_golden_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:golden_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_iron_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:iron_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_iron_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:iron_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_iron_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:iron_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_iron_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:iron_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_iron_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:iron_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_iron_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:iron_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_iron_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:iron_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_iron_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:iron_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_copper_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:copper_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_copper_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:copper_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_copper_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:copper_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_copper_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:copper_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_copper_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:copper_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_copper_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:copper_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_copper_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:copper_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_copper_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:copper_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_chainmail_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:chainmail_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_chainmail_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:chainmail_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_chainmail_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:chainmail_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_chainmail_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:chainmail_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_chainmail_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:chainmail_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_chainmail_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:chainmail_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_chainmail_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:chainmail_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_chainmail_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:chainmail_boots') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_leather_helmet_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:leather_helmet') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_leather_helmet_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.head', 0, 'minecraft:leather_helmet') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_leather_chestplate_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:leather_chestplate') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_leather_chestplate_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.chest', 0, 'minecraft:leather_chestplate') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_leather_leggings_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:leather_leggings') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_leather_leggings_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.legs', 0, 'minecraft:leather_leggings') && q.property('glow:color') == 2"
+        },
+        {
+          "controller.render.outline_leather_boots_layer_black_no_esp": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:leather_boots') && q.property('glow:color') == 1"
+        },
+        {
+          "controller.render.outline_leather_boots_layer_customization": "!variable.is_first_person && query.is_item_name_any('slot.armor.feet', 0, 'minecraft:leather_boots') && q.property('glow:color') == 2"
         }
       ],
       "enable_attachables": true
