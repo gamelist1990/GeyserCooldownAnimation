@@ -1,0 +1,74 @@
+[
+  {
+    "name": "none_ad_sneak_stress_60s",
+    "armor": "none",
+    "main": "air",
+    "off": "air",
+    "actions": [
+      {
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.25
+      }
+    ],
+    "repeat": 60,
+    "motion_bounds": 1.0
+  },
+  {
+    "name": "iron_ad_sneak_stress_60s",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.25
+      },
+      {
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.25
+      }
+    ],
+    "repeat": 60,
+    "motion_bounds": 1.0
+  }
+]

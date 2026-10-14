@@ -125,7 +125,7 @@ def build(output, thickness, extension_source, revision):
     # First-person material choices retain their original expressions.
     rc_path = "render_controllers/armor/armor.render_controllers.json"
     controllers = json.loads(files[rc_path])
-    armor = controllers["render_controllers"]["controller.render.armor"]
+    armor = controllers["render_controllers"].get("controller.render.gca_glowing_armor") or controllers["render_controllers"]["controller.render.armor"]
     old_material = armor["materials"][0]["*"]
     armor["materials"] = [{"*": f"variable.is_first_person ? {old_material} : "
                            "(variable.is_enchanted ? Material.enchanted : Material.default)"}]

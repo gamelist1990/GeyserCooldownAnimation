@@ -1,0 +1,14 @@
+[
+  {
+    "source": "https://raw.githubusercontent.com/Mojang/bedrock-samples/main/resource_pack/textures/models/armor/diamond_1.png",
+    "source_sha256": "967f7080c0a9fa963684710e72f231abdb6356af294f487efd4366abfb2be28b",
+    "derived": "coverage_1.png",
+    "purpose": "Uniform alpha coverage, not actual armor appearance"
+  },
+  {
+    "source": "https://raw.githubusercontent.com/Mojang/bedrock-samples/main/resource_pack/textures/models/armor/diamond_2.png",
+    "source_sha256": "da4b654bd276a0c975e092d037c24136cee03139fb63116dcc4c11705ae3ed07",
+    "derived": "coverage_2.png",
+    "purpose": "Uniform alpha coverage, not actual armor appearance"
+  }
+]

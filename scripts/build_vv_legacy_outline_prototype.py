@@ -23,12 +23,22 @@ def encoded(value):
 
 
 def build(source, output, separate_body_mask=False, diagnose_skin_only=False,
-          repaint_skin=False, depth_test_repaint=False, forward_mask=False):
+          repaint_skin=False, depth_test_repaint=False, forward_mask=False,
+          armor_masks=False, rebuild_pose=False, matched_mask_rigs=False,
+          solid_armor_silhouettes=False):
+    if solid_armor_silhouettes:
+        matched_mask_rigs = True
+    if matched_mask_rigs:
+        rebuild_pose = True
+    if rebuild_pose:
+        armor_masks = True
+    if armor_masks:
+        forward_mask = True
     if forward_mask:
         depth_test_repaint = True
     if depth_test_repaint:
         repaint_skin = True
-    revision = 8 if forward_mask else (7 if depth_test_repaint else (6 if repaint_skin else (5 if diagnose_skin_only else (4 if separate_body_mask else 3))))
+    revision = 12 if solid_armor_silhouettes else (11 if matched_mask_rigs else (10 if rebuild_pose else (9 if armor_masks else (8 if forward_mask else (7 if depth_test_repaint else (6 if repaint_skin else (5 if diagnose_skin_only else (4 if separate_body_mask else 3))))))))
     with zipfile.ZipFile(source) as jar:
         with zipfile.ZipFile(io.BytesIO(jar.read("geyser-cooldown-animation.mcpack"))) as pack:
             files = {name: pack.read(name) for name in pack.namelist()}
@@ -178,6 +188,177 @@ def build(source, output, separate_body_mask=False, diagnose_skin_only=False,
         order.insert(index, {"controller.render.vv_forward_mask":
             "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator && q.property('glow:color') > 0 && q.property('glow:a') > 0"})
         files[name] = encoded(player)
+    if armor_masks:
+        slots = ("helmet", "chestplate", "leggings", "boots") if solid_armor_silhouettes else ("helmet", "chestplate")
+        # Reference dimensions/UV: Mojang bedrock-samples player_armor.json.
+        # Use the existing player skeleton so mask parts follow the same pose
+        # as the user-confirmed outline models, without attachable offsets.
+        skeleton = json.loads(stable["models/entity/wide_player_outline.geo.json"])["minecraft:geometry"][0]
+        geometries = []
+        visible_parts = {"helmet": {"head", "hat"}, "chestplate": {"body", "leftArm", "rightArm"},
+                         "leggings": {"body", "leftLeg", "rightLeg"}, "boots": {"leftLeg", "rightLeg"}}
+        for slot in slots:
+            visible = visible_parts[slot]
+            bones = []
+            for old in skeleton["bones"]:
+                if old["name"] not in {"root", "waist", "body", "head", "hat", "leftArm", "rightArm", "leftLeg", "rightLeg"}:
+                    continue
+                bone = {key: copy.deepcopy(value) for key, value in old.items()
+                        if key in {"name", "parent", "pivot", "rotation"}}
+                if old["name"] in visible:
+                    if old["name"] == "hat":
+                        cube = {"origin": [-4, 24, -4], "size": [8, 8, 8],
+                                "uv": [32, 0], "inflate": 0.5}
+                    else:
+                        cube = copy.deepcopy(old["cubes"][0])
+                        cube["inflate"] = 1.01 if old["name"] == "body" else 1.0
+                        if old["name"] in {"leftArm", "rightArm"}:
+                            cube["uv"] = [40, 16]
+                            if old["name"] == "leftArm":
+                                cube["mirror"] = True
+                        if solid_armor_silhouettes:
+                            if slot == "chestplate" and old["name"] in {"leftArm", "rightArm"}:
+                                cube["origin"][1] = 19
+                                cube["size"][1] = 5
+                            elif slot == "leggings":
+                                cube["inflate"] = 0.5 if old["name"] == "body" else 0.49
+                                if old["name"] in {"leftLeg", "rightLeg"}:
+                                    cube["origin"][1] = 3
+                                    cube["size"][1] = 9
+                            elif slot == "boots":
+                                cube["size"][1] = 6
+                                cube["inflate"] = 1.0
+                            if old["name"] in {"leftLeg", "rightLeg"}:
+                                cube["origin"][0] = -0.1 if old["name"] == "leftLeg" else -3.9
+                    bone["cubes"] = [cube]
+                bones.append(bone)
+            geometries.append({"description": {"identifier": f"geometry.vv_armor_mask_{slot}",
+                "texture_width": 64, "texture_height": 32, "visible_bounds_width": 5,
+                "visible_bounds_height": 4, "visible_bounds_offset": [0, 1, 0]}, "bones": bones})
+        files["models/entity/vv_armor_masks.geo.json"] = encoded(
+            {"format_version": "1.12.0", "minecraft:geometry": geometries})
+        definitions = {}
+        for name, content in stable.items():
+            if name.startswith("render_controllers/") and name.endswith(".json"):
+                definitions.update(json.loads(content)["render_controllers"])
+        player = json.loads(files["entity/player.entity.json"])
+        description = player["minecraft:client_entity"]["description"]
+        for slot in slots:
+            description["geometry"][f"vv_armor_mask_{slot}"] = f"geometry.vv_armor_mask_{slot}"
+        additions = []
+        controllers = {}
+        for entry in description["render_controllers"]:
+            if not isinstance(entry, dict):
+                continue
+            for name, condition in entry.items():
+                if not name.endswith("_layer_customization") or not name.startswith("controller.render.outline_"):
+                    continue
+                slot = next((slot for slot in slots if f"_{slot}_" in name), None)
+                if not slot:
+                    continue
+                mask_name = "controller.render.vv_armor_mask_" + name.removeprefix("controller.render.outline_")
+                controllers[mask_name] = {"geometry": f"Geometry.vv_armor_mask_{slot}",
+                    "materials": [{"*": "Material.vv_forward_mask"}],
+                    "textures": copy.deepcopy(definitions[name]["textures"]),
+                    "part_visibility": [{"*": True}]}
+                condition = condition.replace("q.property('glow:color') == 2", "q.property('glow:color') > 0")
+                additions.append({mask_name: f"({condition}) && !variable.map_face_icon && !query.is_spectator && q.property('glow:a') > 0"})
+        order = description["render_controllers"]
+        index = next(i for i, entry in enumerate(order)
+                     if isinstance(entry, dict) and any("outline" in key for key in entry))
+        order[index:index] = additions
+        files["entity/player.entity.json"] = encoded(player)
+        files["render_controllers/vv_armor_masks.render_controllers.json"] = encoded(
+            {"format_version": "1.8.0", "render_controllers": controllers})
+        if solid_armor_silhouettes:
+            from PIL import Image
+            texture = io.BytesIO()
+            Image.new("RGBA", (2, 2), (255, 255, 255, 255)).save(texture, format="PNG")
+            files["textures/entity/vv_silhouette_mask.png"] = texture.getvalue()
+            description["textures"]["vv_silhouette_mask"] = "textures/entity/vv_silhouette_mask"
+            files["entity/player.entity.json"] = encoded(player)
+            for path, content in list(files.items()):
+                if not path.startswith("render_controllers/") or not path.endswith(".json"):
+                    continue
+                doc = json.loads(content)
+                changed = False
+                for key, controller in doc["render_controllers"].items():
+                    if key.startswith("controller.render.vv_armor_mask_") or (
+                            key.startswith("controller.render.outline_") and any(f"_{slot}_" in key for slot in slots)):
+                        controller["textures"] = ["Texture.vv_silhouette_mask"]
+                        changed = True
+                if changed:
+                    files[path] = encoded(doc)
+    if matched_mask_rigs:
+        player = json.loads(files["entity/player.entity.json"])
+        description = player["minecraft:client_entity"]["description"]
+        for kind, source_name in [("slim", "player_outline.geo.json"),
+                                  ("wide", "wide_player_outline.geo.json")]:
+            geometry = json.loads(stable[f"models/entity/{source_name}"])
+            model = geometry["minecraft:geometry"][0]
+            identifier = f"geometry.vv_body_mask_{kind}"
+            model["description"]["identifier"] = identifier
+            # Same bone order, pivots, cube UVs and parent transforms as outline.
+            # Remove only outline expansion so the mask is the inner surface.
+            for bone in model["bones"]:
+                bone.pop("inflate", None)
+                for cube in bone.get("cubes", []):
+                    cube["inflate"] = 0.0
+            files[f"models/entity/vv_body_mask_{kind}.geo.json"] = encoded(geometry)
+            description["geometry"][f"vv_body_mask_{kind}"] = identifier
+        files["entity/player.entity.json"] = encoded(player)
+        path = "render_controllers/player.render_controllers.json"
+        controllers = json.loads(files[path])
+        mask = controllers["render_controllers"]["controller.render.vv_forward_mask"]
+        mask["arrays"] = {"geometries": {"Array.vv_body_masks":
+            ["Geometry.vv_body_mask_slim", "Geometry.vv_body_mask_wide"]}}
+        mask["geometry"] = "Array.vv_body_masks[variable.slim ? 0 : 1]"
+        mask["part_visibility"] = [{"*": True}]
+        files[path] = encoded(controllers)
+        # Keep the armor mask's full bone order aligned with the armor outline,
+        # even when most bones carry no mask cubes.
+        path = "models/entity/vv_armor_masks.geo.json"
+        masks = json.loads(files[path])
+        for model in masks["minecraft:geometry"]:
+            original_bones = json.loads(stable["models/entity/player_armor_2.json" if model["description"]["identifier"].endswith("leggings") else "models/entity/player_armor_1.json"])["minecraft:geometry"][0]["bones"]
+            cubes = {bone["name"]: bone["cubes"] for bone in model["bones"] if bone.get("cubes")}
+            model["bones"] = [{key: copy.deepcopy(value) for key, value in bone.items()
+                               if key != "cubes"} for bone in original_bones]
+            for bone in model["bones"]:
+                if bone["name"] in cubes:
+                    bone["cubes"] = cubes[bone["name"]]
+                    if solid_armor_silhouettes:
+                        for cube in bone["cubes"]:
+                            cube["uv"] = {face: {"uv": [0, 0], "uv_size": [2, 2]}
+                                          for face in ("north", "east", "south", "west", "up", "down")}
+                    elif bone["name"] in {"leftArm", "rightArm"}:
+                        # Sleeve bottom cap must not punch out the bare hand's
+                        # contour. Side UVs still preserve texture alpha holes.
+                        bone["cubes"][0]["uv"] = {
+                            "north": {"uv": [44, 20], "uv_size": [4, 12]},
+                            "east": {"uv": [40, 20], "uv_size": [4, 12]},
+                            "south": {"uv": [52, 20], "uv_size": [4, 12]},
+                            "west": {"uv": [48, 20], "uv_size": [4, 12]},
+                            "up": {"uv": [44, 16], "uv_size": [4, 4]}}
+        files[path] = encoded(masks)
+    if rebuild_pose:
+        # Default skin, compact armor mask, and the fragmented outline have
+        # different bone arrays. Request matrices for each third-person geometry
+        # rather than depending on another controller's cached bone transforms.
+        # The first-person controller and shared attachable controllers stay as-is.
+        for name, content in list(files.items()):
+            if not name.startswith("render_controllers/") or not name.endswith(".json"):
+                continue
+            doc = json.loads(content)
+            changed = False
+            for key, controller in doc["render_controllers"].items():
+                if "first_person" not in key and (
+                        "outline" in key or key.startswith("controller.render.vv_")
+                        or key == "controller.render.player.third_person"):
+                    controller["rebuild_animation_matrices"] = True
+                    changed = True
+            if changed:
+                files[name] = encoded(doc)
     if diagnose_skin_only:
         name = "entity/player.entity.json"
         player = json.loads(files[name])
@@ -198,10 +379,10 @@ def build(source, output, separate_body_mask=False, diagnose_skin_only=False,
                 if key == "controller.render.player.third_person":
                     controller["materials"] = [{"*": "Material.default"}]
                     changed = True
-                elif key in {"controller.render.armor", "controller.render.player.cape"}:
+                elif key in {"controller.render.armor", "controller.render.gca_glowing_armor", "controller.render.player.cape"}:
                     original = json.loads(stable[name])["render_controllers"][key]["materials"][0]["*"]
                     vanilla = ("variable.is_enchanted ? Material.enchanted : Material.default"
-                               if key == "controller.render.armor" else "Material.default")
+                               if key in {"controller.render.armor", "controller.render.gca_glowing_armor"} else "Material.default")
                     controller["materials"] = [{"*": f"variable.is_first_person ? ({original}) : ({vanilla})"}]
                     changed = True
             if changed:
@@ -245,6 +426,18 @@ def build(source, output, separate_body_mask=False, diagnose_skin_only=False,
                         after[key]["description"]["render_controllers"] = [
                             entry for entry in after[key]["description"]["render_controllers"]
                             if not isinstance(entry, dict) or "controller.render.vv_forward_mask" not in entry]
+                    if armor_masks and key == "minecraft:client_entity":
+                        for slot in slots:
+                            after[key]["description"]["geometry"].pop(f"vv_armor_mask_{slot}")
+                        after[key]["description"]["render_controllers"] = [
+                            entry for entry in after[key]["description"]["render_controllers"]
+                            if not isinstance(entry, dict) or not any(
+                                name.startswith("controller.render.vv_armor_mask_") for name in entry)]
+                    if matched_mask_rigs and key == "minecraft:client_entity":
+                        for kind in ("slim", "wide"):
+                            after[key]["description"]["geometry"].pop(f"vv_body_mask_{kind}")
+                    if solid_armor_silhouettes and key == "minecraft:client_entity":
+                        after[key]["description"]["textures"].pop("vv_silhouette_mask")
             if before != after:
                 raise ValueError(f"Unexpected entity/attachable behavior change: {name}")
         if name.startswith("render_controllers/") and name.endswith(".json"):
@@ -287,9 +480,20 @@ if __name__ == "__main__":
                         help="Prototype 7: keep the skin composite, but let terrain occlude it")
     parser.add_argument("--forward-mask", action="store_true",
                         help="Prototype 8: stencil body mask in the same material family as the outline")
+    parser.add_argument("--armor-masks", action="store_true",
+                        help="Prototype 9: extend prototype 8 with helmet and chestplate silhouette masks")
+    parser.add_argument("--rebuild-pose", action="store_true",
+                        help="Prototype 10: rebuild matrices for each third-person mask/outline geometry")
+    parser.add_argument("--matched-mask-rigs", action="store_true",
+                        help="Prototype 11: mask bone layouts match legacy outlines; remove sleeve mask bottom caps")
+    parser.add_argument("--solid-armor-silhouettes", action="store_true",
+                        help="Prototype 12: opaque equipment silhouettes, with sleeve/legging/boot extents")
     args = parser.parse_args()
     if sum([args.separate_body_mask, args.diagnose_skin_only, args.repaint_skin,
-            args.depth_test_repaint, args.forward_mask]) > 1:
+            args.depth_test_repaint, args.forward_mask, args.armor_masks, args.rebuild_pose,
+            args.matched_mask_rigs, args.solid_armor_silhouettes]) > 1:
         parser.error("Choose one experiment")
     build(args.extension_source, args.output, args.separate_body_mask,
-          args.diagnose_skin_only, args.repaint_skin, args.depth_test_repaint, args.forward_mask)
+          args.diagnose_skin_only, args.repaint_skin, args.depth_test_repaint,
+          args.forward_mask, args.armor_masks, args.rebuild_pose, args.matched_mask_rigs,
+          args.solid_armor_silhouettes)

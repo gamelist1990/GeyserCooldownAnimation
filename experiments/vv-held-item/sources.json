@@ -1,0 +1,5 @@
+{
+  "source": "https://raw.githubusercontent.com/Mojang/bedrock-samples/main/resource_pack/attachables/shield.entity.json",
+  "sha256": "3454d5c5361aff33bd19cfff636821e5c136fd363180d718172a0413c99fec19",
+  "purpose": "Retain vanilla shield geometry/animations; replace only third-person material"
+}

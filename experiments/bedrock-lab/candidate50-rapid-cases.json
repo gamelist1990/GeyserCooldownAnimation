@@ -1,0 +1,1074 @@
+[
+  {
+    "name": "bare_none_rapid",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "none",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "bare_wall_rapid",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "bare_full_wall_rapid",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "full_wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "bare_entity_rapid",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "iron_none_rapid",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "none",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "iron_wall_rapid",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "iron_full_wall_rapid",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "full_wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "iron_entity_rapid",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "elytra_none_rapid",
+    "armor": {
+      "head": "iron_helmet",
+      "chest": "elytra",
+      "legs": "iron_leggings",
+      "feet": "iron_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "none",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "elytra_wall_rapid",
+    "armor": {
+      "head": "iron_helmet",
+      "chest": "elytra",
+      "legs": "iron_leggings",
+      "feet": "iron_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "elytra_full_wall_rapid",
+    "armor": {
+      "head": "iron_helmet",
+      "chest": "elytra",
+      "legs": "iron_leggings",
+      "feet": "iron_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "full_wall",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "elytra_entity_rapid",
+    "armor": {
+      "head": "iron_helmet",
+      "chest": "elytra",
+      "legs": "iron_leggings",
+      "feet": "iron_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  },
+  {
+    "name": "diamond_emptyhands_rapid",
+    "armor": "diamond",
+    "main": "air",
+    "off": "air",
+    "motion_bounds": 0.8,
+    "actions": [
+      {
+        "yaw": 150,
+        "pitch": -45,
+        "hold": [
+          "a",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 210,
+        "pitch": 45,
+        "hold": [
+          "d",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 120,
+        "pitch": -65,
+        "hold": [
+          "Shift_L",
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 240,
+        "pitch": 65,
+        "hold": [
+          "Shift_L",
+          "d"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "hold": [
+          "w",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 0,
+        "pitch": 0,
+        "hold": [
+          "s",
+          "space"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 90,
+        "pitch": -20,
+        "hold": [
+          "a"
+        ],
+        "seconds": 0.35
+      },
+      {
+        "yaw": 270,
+        "pitch": 20,
+        "hold": [
+          "d"
+        ],
+        "seconds": 0.35
+      }
+    ],
+    "repeat": 5
+  }
+]

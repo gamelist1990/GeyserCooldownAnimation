@@ -1,0 +1,24 @@
+[
+  {"name":"bare_idle_off","armor":"none","glow":false},
+  {"name":"bare_idle","armor":"none"},
+  {"name":"bare_ad","armor":"none","actions":[
+    {"hold":["a"],"seconds":0.25},{"hold":["d"],"seconds":0.25},
+    {"hold":["a"],"seconds":0.25},{"hold":["d"],"seconds":0.25},
+    {"hold":["a"],"seconds":0.25},{"hold":["d"],"seconds":0.25},
+    {"hold":["a"],"seconds":0.25},{"hold":["d"],"seconds":0.25}]},
+  {"name":"bare_sneak","armor":"none","actions":[{"hold":["Shift_L","a"],"seconds":1},{"hold":["Shift_L","d"],"seconds":1}]},
+  {"name":"iron_idle","armor":"iron"},
+  {"name":"iron_sword","armor":"iron","main":"iron_sword"},
+  {"name":"iron_shield","armor":"iron","off":"shield"},
+  {"name":"iron_sword_shield","armor":"iron","main":"iron_sword","off":"shield"},
+  {"name":"iron_sneak_sword_shield","armor":"iron","main":"iron_sword","off":"shield","actions":[{"hold":["Shift_L","a"],"seconds":1},{"hold":["Shift_L","d"],"seconds":1}]},
+  {"name":"iron_head_pitch","armor":"iron","actions":[{"yaw":180,"pitch":-45,"seconds":1},{"yaw":180,"pitch":45,"seconds":1},{"yaw":150,"pitch":0,"seconds":1},{"yaw":210,"pitch":0,"seconds":1}]},
+  {"name":"diamond_sword_shield","armor":"diamond","main":"iron_sword","off":"shield"},
+  {"name":"chainmail_sword_shield","armor":"chainmail","main":"iron_sword","off":"shield"},
+  {"name":"netherite_sword_shield","armor":"netherite","main":"iron_sword","off":"shield"},
+  {"name":"leather_sword_shield","armor":"leather","main":"iron_sword","off":"shield"},
+  {"name":"bare_trident","armor":"none","main":"trident"},
+  {"name":"bare_mace","armor":"none","main":"mace"},
+  {"name":"bare_axe","armor":"none","main":"iron_axe"},
+  {"name":"bare_block","armor":"none","main":"stone"}
+]

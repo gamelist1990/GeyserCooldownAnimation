@@ -1,0 +1,182 @@
+[
+  {
+    "name": "wall_none_pose_items",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  },
+  {
+    "name": "wall_iron_pose_items",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  },
+  {
+    "name": "wall_diamond_pose_items",
+    "armor": "diamond",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "wall",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  },
+  {
+    "name": "entity_none_pose_items",
+    "armor": "none",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  },
+  {
+    "name": "entity_iron_pose_items",
+    "armor": "iron",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  },
+  {
+    "name": "entity_diamond_pose_items",
+    "armor": "diamond",
+    "main": "iron_sword",
+    "off": "shield",
+    "occlusion": "entity",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": -30,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 30,
+        "seconds": 1
+      },
+      {
+        "hold": [
+          "Shift_L"
+        ],
+        "seconds": 2
+      }
+    ]
+  }
+]

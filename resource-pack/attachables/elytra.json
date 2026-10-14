@@ -30,7 +30,7 @@
           "default_controller"
         ]
       },
-      "render_controllers": [ "controller.render.armor" ]
+      "render_controllers": [ "controller.render.gca_glowing_armor" ]
     }
   }
 }

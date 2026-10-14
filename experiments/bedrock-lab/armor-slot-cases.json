@@ -1,0 +1,194 @@
+[
+  {
+    "name": "iron_head_pitch_off",
+    "armor": "iron",
+    "glow": false,
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "iron_head_pose",
+    "armor": {
+      "head": "iron_helmet"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "iron_chest_pose",
+    "armor": {
+      "chest": "iron_chestplate"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "iron_legs_pose",
+    "armor": {
+      "legs": "iron_leggings"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "iron_feet_pose",
+    "armor": {
+      "feet": "iron_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "mixed_armor_pose",
+    "armor": {
+      "head": "diamond_helmet",
+      "chest": "iron_chestplate",
+      "legs": "chainmail_leggings",
+      "feet": "leather_boots"
+    },
+    "main": "iron_sword",
+    "off": "shield",
+    "actions": [
+      {
+        "yaw": 180,
+        "pitch": -45,
+        "seconds": 1
+      },
+      {
+        "yaw": 180,
+        "pitch": 45,
+        "seconds": 1
+      },
+      {
+        "yaw": 150,
+        "pitch": 0,
+        "seconds": 1
+      },
+      {
+        "yaw": 210,
+        "pitch": 0,
+        "seconds": 1
+      }
+    ]
+  },
+  {
+    "name": "golden_sword_shield",
+    "armor": "golden",
+    "main": "iron_sword",
+    "off": "shield"
+  },
+  {
+    "name": "copper_sword_shield",
+    "armor": "copper",
+    "main": "iron_sword",
+    "off": "shield"
+  }
+]
